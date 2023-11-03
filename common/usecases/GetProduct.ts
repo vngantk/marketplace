@@ -1,12 +1,16 @@
 import {QueryUseCase} from "./UseCase";
 import {Product} from "../entities/Product";
 
-export interface GetProduct {
-    id: string;
-}
+export namespace GetProduct {
+    export type Query = Readonly<{
+        id: string;
+    }>
 
-export abstract class GetProductUseCase extends QueryUseCase<GetProduct, Product | undefined> {
-    protected constructor() {
-        super("GetProduct");
+    export abstract class UseCase extends QueryUseCase<Query, Product | undefined> {
+        protected constructor() {
+            super("GetProduct");
+        }
     }
 }
+
+export default GetProduct;

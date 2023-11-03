@@ -1,24 +1,16 @@
 import {QueryUseCase} from "./UseCase";
 import {Category} from "../entities/Category";
 
-export interface GetCategory {
-    name: string;
-}
+export namespace GetCategory {
+    export type Query = Readonly<{
+        id: string;
+    }>
 
-export abstract class GetCategoryUseCase extends QueryUseCase<GetCategory, Category | undefined> {
-    protected constructor() {
-        super("GetCategory");
+    export abstract class UseCase extends QueryUseCase<Query, Category | undefined> {
+        protected constructor() {
+            super("GetCategory");
+        }
     }
 }
 
-abstract class GetCategories extends QueryUseCase<{ name: string; }, Category[]> {
-    protected constructor() {
-        super("GetCategories");
-    }
-}
-
-function MyFunction(name: string, age: number, address: string) {
-
-}
-
-let my: Parameters<typeof MyFunction> = ["", 1, ""];
+export default GetCategory;

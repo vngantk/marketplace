@@ -4,7 +4,7 @@ export enum Type {
     COMMAND = "COMMAND"
 }
 
-export interface UseCase<Req, Resp> {
+export interface UseCase<Req = any, Resp = any> {
     readonly name: string;
     readonly type: Type;
     execute(request: Req): Promise<Resp>;
@@ -12,6 +12,7 @@ export interface UseCase<Req, Resp> {
 
 export abstract class CommandUseCase<Command> implements UseCase<Command, void> {
     readonly type: Type.COMMAND;
+
     protected constructor(readonly name: string) {
         this.type = Type.COMMAND;
     }

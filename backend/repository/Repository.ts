@@ -1,44 +1,39 @@
 import {Product} from "../../common/entities/Product";
 import {Category} from "../../common/entities/Category";
 
-export abstract class Repository {
+export interface Repository {
 
-    abstract getProduct(id: string): Promise<Product | undefined>;
+    getProduct(id: string): Promise<Product | undefined>;
 
-    abstract getProductsByName(name: string): Promise<Product[]>;
+    getProductsByName(name: string): Promise<Product[]>;
 
-    abstract getProductsByNamePattern(pattern: string): Promise<Product[]>;
+    getProductsByNamePattern(pattern: string): Promise<Product[]>;
 
-    abstract getProductsByCategory(category: string): Promise<Product[]>;
-
-    abstract getAllProducts(): Promise<Product[]>;
+    getAllProducts(): Promise<Product[]>;
 
 
-    abstract addProduct(product: Product): Promise<Product>;
+    addProduct(product: Omit<Product, "id">): Promise<Product>;
 
-    abstract updateProduct(id: string, productPartial: Partial<Product>): Promise<Product>;
+    updateProduct(id: string, productPartial: Partial<Product>): Promise<Product>;
 
-    abstract deleteProduct(id: string): Promise<number>;
+    deleteProduct(id: string): Promise<number>;
 
-
-    abstract getCategory(id: string): Promise<Category | undefined>;
-
-    abstract getCategoryByName(name: string): Promise<Category | undefined>;
-
-    abstract getCategoriesByNamePattern(pattern: string): Promise<Category[]>;
-
-    abstract getAllCategories(): Promise<Category[]>;
-
-    abstract addCategory(category: Category): Promise<Category>;
-
-    abstract deleteCategory(id: string): Promise<number>;
-
-    abstract deleteCategoryByName(name: string): Promise<number>;
+    deleteAllProducts(): Promise<number>;
 
 
-    abstract deleteAllProducts(): Promise<number>;
+    getCategory(id: string): Promise<Category | undefined>;
 
-    abstract deleteAllCategories(): Promise<number>;
+    getCategoryByName(name: string): Promise<Category | undefined>;
+
+    getAllCategories(): Promise<Category[]>;
+
+    addCategory(category: Omit<Category, "id">): Promise<Category>;
+
+    deleteCategory(id: string): Promise<number>;
+
+    deleteCategoryByName(name: string): Promise<number>;
+
+    deleteAllCategories(): Promise<number>;
 }
 
 export default Repository;

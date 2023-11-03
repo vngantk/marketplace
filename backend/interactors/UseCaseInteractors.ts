@@ -1,131 +1,43 @@
-import {Repository} from "../repository/Repository";
-import Product from "../../common/entities/Product";
-import Category from "../../common/entities/Category";
+import Repository from "../repository/Repository";
+import UseCases from "../../common/usecases/UseCases";
+import AddCategoryInteractor from "./AddCategoryInteractor";
+import AddProductInteractor from "./AddProductInteractor";
+import DeleteAllCategoriesInteractor from "./DeleteAllCategoriesInteractor";
+import DeleteAllProductsInteractor from "./DeleteAllProductsInteractor";
+import DeleteCategoryInteractor from "./DeleteCategoryInteractor";
+import DeleteCategoryByNameInteractor from "./DeleteCategoryByNameInteractor";
+import DeleteProductInteractor from "./DeleteProductInteractor";
+import GetAllCategoriesInteractor from "./GetAllCategoriesInteractor";
+import GetAllProductsInteractor from "./GetAllProductsInteractor";
+import GetCategoryInteractor from "./GetCategoryInteractor";
+import GetCategoryByNameInteractor from "./GetCategoryByNameInteractor";
+import GetProductInteractor from "./GetProductInteractor";
+import GetProductsByNameInteractor from "./GetProductsByNameInteractor";
+import UpdateProductInteractor from "./UpdateProductInteractor";
+import {UseCase} from "../../common/usecases/UseCase";
 
-import {GetProduct, GetProductUseCase} from "../../common/usecases/GetProduct";
-import {GetAllProducts, GetAllProductsUseCase} from "../../common/usecases/GetAllProducts";
-import {GetProductsByNamePattern, GetProductsByNamePatternUseCase} from "../../common/usecases/GetProductsByNamePattern";
-import {AddProduct, AddProductUseCase} from "../../common/usecases/AddProduct";
-import {DeleteProduct, DeleteProductUseCase} from "../../common/usecases/DeleteProduct";
-import {UpdateProduct, UpdateProductUseCase} from "../../common/usecases/UpdateProduct";
-import {GetCategory, GetCategoryUseCase} from "../../common/usecases/GetCategory";
-import {GetAllCategories, GetAllCategoriesUseCase} from "../../common/usecases/GetAllCategories";
-import {AddCategory, AddCategoryUseCase} from "../../common/usecases/AddCategory";
-import {DeleteCategory, DeleteCategoryUseCase} from "../../common/usecases/DeleteCategory";
-import {DeleteAllProductsUseCase} from "../../common/usecases/DeleteAllProducts";
-
-class GetProductInteractor extends GetProductUseCase {
-    constructor(readonly repository: Repository) {
-        super();
-    }
-    override execute(query: GetProduct): Promise<Product | undefined> {
-        return this.repository.getProduct(query.id);
-    }
+function push<T>(array: any[], item: T): T {
+    array.push(item);
+    return item;
 }
 
-class GetAllProductsInteractor extends GetAllProductsUseCase {
-    constructor(readonly repository: Repository) {
-        super();
-    }
-    override execute(query: GetAllProducts): Promise<Product[]> {
-        return this.repository.getAllProducts();
-    }
-}
-
-class GetProductsByNamePatternInteractor extends GetProductsByNamePatternUseCase {
-    constructor(readonly repository: Repository) {
-        super();
-    }
-    override execute(query: GetProductsByNamePattern): Promise<Product[]> {
-        return this.repository.getProductsByNamePattern(query.pattern);
-    }
-}
-
-class AddProductInteractor extends AddProductUseCase {
-    constructor(readonly repository: Repository) {
-        super();
-    }
-    override execute(command: AddProduct): Promise<void> {
-        return this.repository.addProduct(command).then();
-    }
-}
-
-class DeleteProductInteractor extends DeleteProductUseCase {
-    constructor(readonly repository: Repository) {
-        super();
-    }
-    override execute(command: DeleteProduct): Promise<void> {
-        return this.repository.deleteProduct(command.id).then();
-    }
-}
-
-class UpdateProductInteractor extends UpdateProductUseCase {
-    constructor(readonly repository: Repository) {
-        super();
-    }
-    override execute(command: UpdateProduct): Promise<void> {
-        return this.repository.updateProduct(command.id, command).then();
-    }
-}
-
-class DeleteAllProductsInteractor extends DeleteAllProductsUseCase {
-    constructor(readonly repository: Repository) {
-        super();
-    }
-    override execute(): Promise<void> {
-        return this.repository.deleteAllProducts().then();
-    }
-}
-
-class GetCategoryInteractor extends GetCategoryUseCase {
-    constructor(readonly repository: Repository) {
-        super();
-    }
-    override execute(query: GetCategory): Promise<Category | undefined> {
-        return this.repository.getCategory(query.name);
-    }
-}
-
-class GetAllCategoriesInteractor extends GetAllCategoriesUseCase {
-    constructor(readonly repository: Repository) {
-        super();
-    }
-    override execute(query: GetAllCategories): Promise<Category[]> {
-        return this.repository.getAllCategories();
-    }
-}
-
-class AddCategoryInteractor extends AddCategoryUseCase {
-    constructor(readonly repository: Repository) {
-        super();
-    }
-    override execute(command: AddCategory): Promise<void> {
-        return this.repository.addCategory(command).then();
-    }
-}
-
-class DeleteCategoryInteractor extends DeleteCategoryUseCase {
-    constructor(readonly repository: Repository) {
-        super();
-    }
-    override execute(command: DeleteCategory): Promise<void> {
-        return this.repository.deleteCategory(command.name).then();
-    }
-}
-
-export class UseCaseInteractors {
+export class UseCaseInteractors implements UseCases {
     constructor(readonly repository: Repository) {}
-    readonly GetProduct: GetProductInteractor = new GetProductInteractor(this.repository);
-    readonly GetAllProducts: GetAllProductsInteractor = new GetAllProductsInteractor(this.repository);
-    readonly GetProductsByNamePattern: GetProductsByNamePatternInteractor = new GetProductsByNamePatternInteractor(this.repository);
-    readonly AddProduct: AddProductInteractor = new AddProductInteractor(this.repository);
-    readonly DeleteProduct: DeleteProductInteractor = new DeleteProductInteractor(this.repository);
-    readonly UpdateProduct: UpdateProductInteractor = new UpdateProductInteractor(this.repository);
-    readonly DeleteAllProducts: DeleteAllProductsInteractor = new DeleteAllProductsInteractor(this.repository);
-    readonly GetCategory: GetCategoryInteractor = new GetCategoryInteractor(this.repository);
-    readonly GetAllCategories: GetAllCategoriesInteractor = new GetAllCategoriesInteractor(this.repository);
-    readonly AddCategory: AddCategoryInteractor = new AddCategoryInteractor(this.repository);
-    readonly DeleteCategory: DeleteCategoryInteractor = new DeleteCategoryInteractor(this.repository);
+    readonly all: UseCase[] = [];
+    readonly AddCategory = push(this.all, new AddCategoryInteractor(this.repository));
+    readonly AddProduct = push(this.all, new AddProductInteractor(this.repository));
+    readonly DeleteAllCategories = push(this.all, new DeleteAllCategoriesInteractor(this.repository));
+    readonly DeleteAllProducts = push(this.all, new DeleteAllProductsInteractor(this.repository));
+    readonly DeleteCategory = push(this.all, new DeleteCategoryInteractor(this.repository));
+    readonly DeleteCategoryByName = push(this.all, new DeleteCategoryByNameInteractor(this.repository));
+    readonly DeleteProduct = push(this.all, new DeleteProductInteractor(this.repository));
+    readonly GetAllCategories = push(this.all, new GetAllCategoriesInteractor(this.repository));
+    readonly GetAllProducts = push(this.all, new GetAllProductsInteractor(this.repository));
+    readonly GetCategory = push(this.all, new GetCategoryInteractor(this.repository));
+    readonly GetCategoryByName = push(this.all, new GetCategoryByNameInteractor(this.repository));
+    readonly GetProduct = push(this.all, new GetProductInteractor(this.repository));
+    readonly GetProductsByName = push(this.all, new GetProductsByNameInteractor(this.repository));
+    readonly UpdateProduct = push(this.all, new UpdateProductInteractor(this.repository));
 }
 
 export default UseCaseInteractors;

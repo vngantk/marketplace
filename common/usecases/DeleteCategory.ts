@@ -1,11 +1,15 @@
 import {CommandUseCase} from "./UseCase";
 
-export interface DeleteCategory {
-    name: string;
-}
+export namespace DeleteCategory {
+    export type Command = Readonly<{
+        name: string;
+    }>
 
-export abstract class DeleteCategoryUseCase extends CommandUseCase<DeleteCategory> {
-    protected constructor() {
-        super("DeleteCategory");
+    export abstract class UseCase extends CommandUseCase<Command> {
+        protected constructor() {
+            super("DeleteCategory");
+        }
     }
 }
+
+export default DeleteCategory;
