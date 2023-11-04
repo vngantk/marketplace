@@ -8,7 +8,7 @@ export default class GetAllProductsInteractor extends GetAllProducts.UseCase {
         super();
     }
 
-    override execute(query: GetAllProducts.Query): Promise<Product[]> {
-        return this.repository.getAllProducts();
+    override async execute(query: GetAllProducts.Query): Promise<Product[]> {
+        return await this.repository.getAllProducts();
     }
 }

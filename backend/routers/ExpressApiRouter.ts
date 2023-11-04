@@ -4,9 +4,8 @@ import AddProduct from "../../common/usecases/AddProduct";
 import UpdateProduct from "../../common/usecases/UpdateProduct";
 import UseCaseInteractors from "../interactors/UseCaseInteractors";
 
-export function ExpressApiRouter(repository: Repository): Router {
+export function ExpressApiRouter(interactors: UseCaseInteractors): Router {
 
-    const interactors = new UseCaseInteractors(repository);
     const router = express.Router();
 
     router.get('/products', (req, res, next) => {

@@ -8,7 +8,7 @@ export default class DeleteCategoryByNameInteractor extends DeleteCategoryByName
         super();
     }
 
-    override execute(command: DeleteCategoryByName.Command): Promise<void> {
-        return this.repository.deleteCategoryByName(command.name ?? error("name must be provided")).then(() => undefined);
+    override async execute(command: DeleteCategoryByName.Command): Promise<void> {
+        await this.repository.deleteCategoryByName(command.name ?? error("name must be provided"))
     }
 }

@@ -6,7 +6,7 @@ export default class DeleteAllCategoriesInteractor extends DeleteAllCategories.U
         super();
     }
 
-    override execute(request:DeleteAllCategories.Command): Promise<void> {
-        return this.repository.deleteAllCategories().then(() => undefined);
+    override async execute(request:DeleteAllCategories.Command): Promise<void> {
+        await this.repository.deleteAllCategories()
     }
 }

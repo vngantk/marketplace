@@ -7,7 +7,7 @@ export default class DeleteProductInteractor extends DeleteProduct.UseCase {
         super();
     }
 
-    override execute(command: DeleteProduct.Command): Promise<void> {
-        return this.repository.deleteProduct(command.id ?? error("id must be provided")).then(() => undefined);
+    override async execute(command: DeleteProduct.Command): Promise<void> {
+        await this.repository.deleteProduct(command.id ?? error("id must be provided"))
     }
 }

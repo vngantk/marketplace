@@ -7,7 +7,7 @@ export default class GetAllCategoriesInteractor extends GetAllCategories.UseCase
         super();
     }
 
-    override execute(query: GetAllCategories.Query): Promise<Category[]> {
-        return this.repository.getAllCategories();
+    override async execute(query: GetAllCategories.Query): Promise<Category[]> {
+        return await this.repository.getAllCategories();
     }
 }

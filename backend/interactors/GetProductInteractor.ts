@@ -8,7 +8,7 @@ export default class GetProductInteractor extends GetProduct.UseCase {
         super();
     }
 
-    override execute(query: GetProduct.Query): Promise<Product | undefined> {
-        return this.repository.getProduct(query.id ?? error("id must be provided"));
+    override async execute(query: GetProduct.Query): Promise<Product | undefined> {
+        return await this.repository.getProduct(query.id ?? error("id must be provided"));
     }
 }

@@ -8,7 +8,7 @@ export default class GetCategoryInteractor extends GetCategory.UseCase {
         super();
     }
 
-    override execute(query: GetCategory.Query): Promise<Category | undefined> {
-        return this.repository.getCategory(query.id ?? error("id must be provided"))
+    override async execute(query: GetCategory.Query): Promise<Category | undefined> {
+        return await this.repository.getCategory(query.id ?? error("id must be provided"))
     }
 }

@@ -7,7 +7,7 @@ export default class DeleteAllProductsInteractor extends DeleteAllProducts.UseCa
         super();
     }
 
-    override execute(command: DeleteAllCategories.Command): Promise<void> {
-        return this.repository.deleteAllProducts().then(() => undefined);
+    override async execute(command: DeleteAllCategories.Command): Promise<void> {
+        await this.repository.deleteAllProducts()
     }
 }

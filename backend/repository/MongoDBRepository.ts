@@ -4,12 +4,8 @@ import Product from "../../common/entities/Product";
 import Category from "../../common/entities/Category";
 
 
-function toObjectId(id: any): Promise<Types.ObjectId> {
-    try {
-        return Promise.resolve(new Types.ObjectId(id))
-    } catch (error) {
-        return Promise.reject(error)
-    }
+function toObjectId(id: any): Types.ObjectId | undefined {
+    return Types.ObjectId.isValid(id) ? new Types.ObjectId(id) : undefined
 }
 
 function produce<T>(producer: () => T): Promise<T> {
@@ -45,7 +41,7 @@ export class MongoDBRepository implements Repository {
                 if (onConnected) {
                     onConnected(mongoose)
                 } else {
-                    console.log(`MongoDB connected with url: ${connectUrl}, options: ${JSON.stringify(connectOptions)}`)
+                    console.log(`Connected to MongoDB at: ${connectUrl}, options: ${JSON.stringify(connectOptions)}`)
                 }
             })
             .catch((error) => {
@@ -86,17 +82,16 @@ export class MongoDBRepository implements Repository {
     }
 
     getProduct(id: string): Promise<Product | undefined> {
-        return toObjectId(id).then(idObj => {
-            return this.productModel
-                .findById(idObj)
-                .exec()
-                .then(result => {
-                    if (result) {
-                        return result.toObject()
-                    }
-                    return undefined;
-                });
-        })
+        const idObj = toObjectId(id)
+        return this.productModel
+            .findById(idObj)
+            .exec()
+            .then(result => {
+                if (result) {
+                    return result.toObject()
+                }
+                return undefined;
+            });
     }
 
     getAllProducts(): Promise<Product[]> {
@@ -132,55 +127,47 @@ export class MongoDBRepository implements Repository {
     }
 
     deleteProduct(id: string): Promise<number> {
-        return toObjectId(id).then(idObj => {
-            return this.productModel
-                .findByIdAndDelete(idObj)
-                .exec()
-                .then(result => result ? 1 : 0);
-        })
+        return this.productModel
+            .findByIdAndDelete(toObjectId(id))
+            .exec()
+            .then(result => result ? 1 : 0);
     }
 
     updateProduct(id: string, productPartial: Partial<Product>): Promise<Product> {
-        return produce<Record<string, any>>(() => {
-            const fields: Record<string, any> = {}
-            if (productPartial.name !== undefined) {
-                fields['name'] = productPartial.name
-            }
-            if (productPartial.description !== undefined) {
-                fields['description'] = productPartial.description
-            }
-            if (productPartial.price !== undefined) {
-                fields['price'] = productPartial.price
-            }
-            if (productPartial.quantity !== undefined) {
-                fields['quantity'] = productPartial.quantity
-            }
-            if (productPartial.category !== undefined) {
-                fields['category'] = productPartial.category
-            }
-            return fields
-        }).then(fields => {
-            return this.productModel
-                .findByIdAndUpdate(new Types.ObjectId(id), {$set: fields}, {returnDocument: 'after'})
-                .exec()
-                .then(result => {
-                    if (result) {
-                        return result.toObject();
-                    }
-                    throw new Error(`Product with d: ${id} not found`);
-                })
-        })
+        const fields: Record<string, any> = {}
+        if (productPartial.name !== undefined) {
+            fields['name'] = productPartial.name
+        }
+        if (productPartial.description !== undefined) {
+            fields['description'] = productPartial.description
+        }
+        if (productPartial.price !== undefined) {
+            fields['price'] = productPartial.price
+        }
+        if (productPartial.quantity !== undefined) {
+            fields['quantity'] = productPartial.quantity
+        }
+        if (productPartial.category !== undefined) {
+            fields['category'] = productPartial.category
+        }
+        return this.productModel
+            .findByIdAndUpdate(new Types.ObjectId(id), {$set: fields}, {returnDocument: 'after'})
+            .exec()
+            .then(result => {
+                if (result) {
+                    return result.toObject();
+                }
+                throw new Error(`Product with d: ${id} not found`);
+            })
     }
 
     getCategory(id: string): Promise<Category | undefined> {
-        return toObjectId(id).then(idObj => {
-            return this.categoryModel
-                .findById(idObj)
-                .exec()
-                .then(result => {
-                    return result?.toObject()
-                });
-        })
+        return this.categoryModel
+            .findById(toObjectId(id))
+            .exec()
+            .then(result => {
+                return result?.toObject()
+            });
     }
 
     getCategoryByName(name: string): Promise<Category | undefined> {

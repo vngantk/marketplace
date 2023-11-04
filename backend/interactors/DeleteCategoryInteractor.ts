@@ -7,7 +7,7 @@ export default class DeleteCategoryInteractor extends DeleteCategory.UseCase {
         super();
     }
 
-    override execute(command: DeleteCategory.Command): Promise<void> {
-        return this.repository.deleteCategory(command.name ?? error("name must be provided")).then(() => undefined);
+    override async execute(command: DeleteCategory.Command): Promise<void> {
+        await this.repository.deleteCategory(command.id ?? error("id must be provided"))
     }
 }

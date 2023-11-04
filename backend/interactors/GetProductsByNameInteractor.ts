@@ -8,12 +8,12 @@ export default class GetProductsByNameInteractor extends GetProductsByName.UseCa
         super();
     }
 
-    override execute(query: GetProductsByName.Query): Promise<Product[]> {
+    override async execute(query: GetProductsByName.Query): Promise<Product[]> {
         const name = query.name ?? error("name must be provided")
         if (query.exactMatch) {
-            return this.repository.getProductsByName(name);
+            return await this.repository.getProductsByName(name);
         } else {
-            return this.repository.getProductsByNamePattern(name);
+            return await this.repository.getProductsByNamePattern(name);
         }
     }
 }

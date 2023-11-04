@@ -8,7 +8,7 @@ export default class GetCategoryByNameInteractor extends GetCategoryByName.UseCa
         super();
     }
 
-    async execute(query: GetCategoryByName.Query): Promise<Category | undefined> {
-        return this.repository.getCategoryByName(query.name ?? error("name must be provided"));
+    override async execute(query: GetCategoryByName.Query): Promise<Category | undefined> {
+        return await this.repository.getCategoryByName(query.name ?? error("name must be provided"));
     }
 }

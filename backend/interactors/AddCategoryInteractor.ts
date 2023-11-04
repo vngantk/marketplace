@@ -6,7 +6,7 @@ export default class AddCategoryInteractor extends AddCategory.UseCase {
         super();
     }
 
-    override execute(command: AddCategory.Command): Promise<void> {
-        return this.repository.addCategory(command).then(() => undefined);
+    override async execute(command: AddCategory.Command): Promise<void> {
+        await this.repository.addCategory(command)
     }
 }

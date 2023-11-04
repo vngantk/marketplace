@@ -7,7 +7,13 @@ export default class UpdateProductInteractor extends UpdateProduct.UseCase {
         super();
     }
 
-    override execute(command: UpdateProduct.Command): Promise<void> {
-        return this.repository.updateProduct(command.id ?? error("id must be provided"), command).then(() => undefined);
+    override async execute(command: UpdateProduct.Command): Promise<void> {
+        const category = command.category;
+        if (category !== undefined) {
+            if (await this.repository.getCategoryByName(category) === undefined) {
+                throw new Error(`Category '${category}' does not exist`);
+            }
+        }
+        await this.repository.updateProduct(command.id ?? error("id must be provided"), command)
     }
 }
