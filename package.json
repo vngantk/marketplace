@@ -11,7 +11,8 @@
     "clean": "rm -rf backend-dist",
     "test": "jest",
     "build": "tsc",
-    "start": "tsc; node backend-dist/backend/index.js"
+    "start": "tsc; node backend-dist/backend/index.js",
+    "sample-db": "tsc; node backend-dist/backend/sample-db.js"
   },
   "author": "Vincent Ngan",
   "license": "ISC",

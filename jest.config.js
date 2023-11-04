@@ -4,5 +4,8 @@ module.exports = {
   testEnvironment: 'node',
   maxConcurrency: 1,
   maxWorkers: 1,
-  testMatch: ['**/*.test.ts']
+  testMatch: ['**/*.test.ts'],
+  collectCoverage: true,
+  coverageReporters: ["json", "html"],
+  coverageDirectory: "backend-dist/coverage",
 };

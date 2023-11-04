@@ -74,7 +74,7 @@ describe('AddProduct', () => {
 describe('GetAllProducts', () => {
     it("should return all products", async () => {
         const products = await interactors.GetAllProducts.execute({})
-        expect(products.length).toEqual(sampleProducts.length)
+        expect(products).toHaveLength(sampleProducts.length)
         for (const product of products) {
             expect(sampleProducts).toContainEqual({
                 name: product.name,

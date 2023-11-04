@@ -1,5 +1,4 @@
 import express, {Router} from 'express';
-import Repository from "../repository/Repository";
 import AddProduct from "../../common/usecases/AddProduct";
 import UpdateProduct from "../../common/usecases/UpdateProduct";
 import UseCaseInteractors from "../interactors/UseCaseInteractors";

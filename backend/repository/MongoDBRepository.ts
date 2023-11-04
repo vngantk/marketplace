@@ -1,4 +1,12 @@
-import mongoose, {Mongoose, Model, Schema, SchemaDefinition, SchemaDefinitionType, Types, ConnectOptions} from "mongoose";
+import mongoose, {
+    ConnectOptions,
+    Model,
+    Mongoose,
+    Schema,
+    SchemaDefinition,
+    SchemaDefinitionType,
+    Types
+} from "mongoose";
 import Repository from "./Repository";
 import Product from "../../common/entities/Product";
 import Category from "../../common/entities/Category";
@@ -6,14 +14,6 @@ import Category from "../../common/entities/Category";
 
 function toObjectId(id: any): Types.ObjectId | undefined {
     return Types.ObjectId.isValid(id) ? new Types.ObjectId(id) : undefined
-}
-
-function produce<T>(producer: () => T): Promise<T> {
-    try {
-        return Promise.resolve(producer())
-    } catch (error) {
-        return Promise.reject(error)
-    }
 }
 
 export class MongoDBRepository implements Repository {
@@ -59,8 +59,22 @@ export class MongoDBRepository implements Repository {
     protected initModel<T>(name: string, definition: SchemaDefinition<SchemaDefinitionType<any>>): Model<T> {
         const schema = new Schema(definition, {
             id: true, versionKey: false,
-            toObject: {virtuals: true, id: true, _id: false, versionKey: false},
-            toJSON: {virtuals: true, id: true, _id: false, versionKey: false }
+            toObject: {
+                virtuals: true,
+                id: true,
+                versionKey: false,
+                transform: function (doc, ret) {
+                    delete ret._id;
+                }
+            },
+            toJSON: {
+                virtuals: true,
+                id: true,
+                versionKey: false,
+                transform: function (doc, ret) {
+                    delete ret._id;
+                }
+            }
         })
         return mongoose.model<T>(name,schema, name)
     }
@@ -98,7 +112,7 @@ export class MongoDBRepository implements Repository {
         return this.productModel
             .find()
             .exec()
-            .then(result => result.map(product => product.toObject()));
+            .then(result => result.map(product => product.toObject({})));
     }
 
     getProductsByName(name: string): Promise<Product[]> {

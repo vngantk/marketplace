@@ -86,7 +86,7 @@ describe('GET /api/products/:id', () => {
         for (const product of products) {
             const res = await request(app).get(`/api/products/${product.id}`)
             expect(res.statusCode).toEqual(200)
-            expect({...res.body, _id: undefined}).toEqual({...product, _id: undefined})
+            expect({...res.body}).toEqual({...product})
         }
     })
 })
@@ -99,9 +99,7 @@ describe('GET /api/products?name=[kw]', () => {
         expect(products.length).toEqual(4)
         for (const product of products) {
             expect(product.name.toLowerCase()).toContain('pro')
-            delete (product as any)['_id']
-            delete (product as any)['__v']
-            delete (product as any)['id']
+            delete(product as any)['id']
         }
         expect(products).toContainEqual(sampleProducts[1]); // iPhone 15 Pro
         expect(products).toContainEqual(sampleProducts[3]); // iPhone 14 Pro
@@ -128,7 +126,7 @@ describe('PUT /api/products/:id', () => {
             expect(putRes.statusCode).toEqual(200)
             const getRes = await request(app).get(`/api/products/${product.id}`)
             expect(getRes.statusCode).toEqual(200)
-            expect({...getRes.body, _id: undefined}).toEqual({...updatedProduct, _id: undefined})
+            expect({...getRes.body}).toEqual({...updatedProduct})
         }
     })
 })
