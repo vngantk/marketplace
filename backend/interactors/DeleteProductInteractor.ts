@@ -1,5 +1,5 @@
-import {DeleteProductUseCase, DeleteProductCommand} from "../../common/usecases/DeleteProduct";
-import {Repository} from "../repository/Repository";
+import {DeleteProductUseCase, DeleteProductCommand} from "../../common/usecases";
+import {Repository} from "../repository";
 import {error} from "../../common/utils";
 
 export class DeleteProductInteractor extends DeleteProductUseCase {

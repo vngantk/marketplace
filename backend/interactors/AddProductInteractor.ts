@@ -1,5 +1,5 @@
-import {AddProductUseCase, AddProductCommand} from "../../common/usecases/AddProduct";
-import {Repository} from "../repository/Repository";
+import {AddProductCommand, AddProductUseCase} from "../../common/usecases";
+import {Repository} from "../repository";
 import {error} from "../../common/utils";
 
 export class AddProductInteractor extends AddProductUseCase {

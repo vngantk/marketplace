@@ -1,6 +1,6 @@
-import {GetCategoryUseCase, GetCategoryQuery} from "../../common/usecases/GetCategory";
-import {Category} from "../../common/entities/Category";
-import {Repository} from "../repository/Repository";
+import {GetCategoryUseCase, GetCategoryQuery} from "../../common/usecases";
+import {Category} from "../../common/entities";
+import {Repository} from "../repository";
 import {error} from "../../common/utils";
 
 export class GetCategoryInteractor extends GetCategoryUseCase {

@@ -1,4 +1,4 @@
-import {Repository} from "../repository/Repository";
+import {Repository} from "../repository";
 import {AddCategoryInteractor} from "./AddCategoryInteractor";
 import {AddProductInteractor} from "./AddProductInteractor";
 import {DeleteAllCategoriesInteractor} from "./DeleteAllCategoriesInteractor";
@@ -13,8 +13,7 @@ import {GetCategoryByNameInteractor} from "./GetCategoryByNameInteractor";
 import {GetProductInteractor} from "./GetProductInteractor";
 import {GetProductsByNameInteractor} from "./GetProductsByNameInteractor";
 import {UpdateProductInteractor} from "./UpdateProductInteractor";
-import {UseCase} from "../../common/usecases/UseCase";
-import {UseCases} from "../../common/usecases/UseCases";
+import {UseCases, UseCase} from "../../common/usecases";
 
 export class UseCaseInteractors implements UseCases {
     constructor(readonly repository: Repository) {}

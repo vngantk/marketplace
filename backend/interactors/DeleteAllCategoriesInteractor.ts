@@ -1,5 +1,5 @@
-import {DeleteAllCategoriesUseCase, DeleteAllCategoriesCommand} from "../../common/usecases/DeleteAllCategories";
-import {Repository} from "../repository/Repository";
+import {DeleteAllCategoriesUseCase, DeleteAllCategoriesCommand} from "../../common/usecases";
+import {Repository} from "../repository";
 
 export class DeleteAllCategoriesInteractor extends DeleteAllCategoriesUseCase {
     constructor(readonly repository: Repository) {

@@ -1,7 +1,7 @@
-import {Category} from "../common/entities/Category";
-import {Product} from "../common/entities/Product";
-import {UseCaseInteractors} from "./interactors/UseCaseInteractors";
-import {MongoDBRepository} from "./repository/MongoDBRepository";
+import {Category} from "../common/entities";
+import {Product} from "../common/entities";
+import {UseCaseInteractors} from "./interactors";
+import {MongoDBRepository} from "./repository";
 import mongoose from "mongoose";
 
 const sampleCategories: Omit<Category, "id">[] = [

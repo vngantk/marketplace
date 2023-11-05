@@ -1,6 +1,6 @@
-import {GetAllCategoriesUseCase, GetAllCategoriesQuery} from "../../common/usecases/GetAllCategories";
-import {Category} from "../../common/entities/Category";
-import {Repository} from "../repository/Repository";
+import {GetAllCategoriesUseCase, GetAllCategoriesQuery} from "../../common/usecases";
+import {Category} from "../../common/entities";
+import {Repository} from "../repository";
 
 export class GetAllCategoriesInteractor extends GetAllCategoriesUseCase {
     constructor(readonly repository: Repository) {

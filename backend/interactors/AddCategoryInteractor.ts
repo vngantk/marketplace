@@ -1,5 +1,5 @@
-import {AddCategoryUseCase, AddCategoryCommand} from "../../common/usecases/AddCategory";
-import {Repository} from "../repository/Repository";
+import {AddCategoryUseCase, AddCategoryCommand} from "../../common/usecases";
+import {Repository} from "../repository";
 
 export class AddCategoryInteractor extends AddCategoryUseCase {
     constructor(readonly repository: Repository) {

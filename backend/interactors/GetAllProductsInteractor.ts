@@ -1,7 +1,6 @@
-import {GetAllProductsUseCase, GetAllProductsQuery} from "../../common/usecases/GetAllProducts";
-import {Product} from "../../common/entities/Product";
-import {Repository} from "../repository/Repository";
-
+import {GetAllProductsUseCase, GetAllProductsQuery} from "../../common/usecases";
+import {Product} from "../../common/entities";
+import {Repository} from "../repository";
 
 export class GetAllProductsInteractor extends GetAllProductsUseCase {
     constructor(readonly repository: Repository) {

@@ -1,6 +1,5 @@
 import express, {Router} from "express"
-import {UseCases} from "../../common/usecases/UseCases";
-import {Type, UseCase} from "../../common/usecases/UseCase"
+import {Type, UseCase, UseCases} from "../../common/usecases"
 
 export function ExpressInteractorsRouter(interactors: UseCases | UseCase[]): Router {
 

@@ -1,6 +1,6 @@
-import {GetCategoryByNameUseCase, GetCategoryByNameQuery} from "../../common/usecases/GetCategoryByName";
-import {Repository} from "../repository/Repository";
-import {Category} from "../../common/entities/Category";
+import {GetCategoryByNameUseCase, GetCategoryByNameQuery} from "../../common/usecases";
+import {Repository} from "../repository";
+import {Category} from "../../common/entities";
 import {error} from "../../common/utils";
 
 export class GetCategoryByNameInteractor extends GetCategoryByNameUseCase {

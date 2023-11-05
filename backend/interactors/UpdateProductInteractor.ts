@@ -1,5 +1,5 @@
-import {UpdateProductUseCase, UpdateProductCommand} from "../../common/usecases/UpdateProduct";
-import {Repository} from "../repository/Repository";
+import {UpdateProductUseCase, UpdateProductCommand} from "../../common/usecases";
+import {Repository} from "../repository";
 import {error} from "../../common/utils";
 
 export class UpdateProductInteractor extends UpdateProductUseCase {

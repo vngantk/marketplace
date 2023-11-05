@@ -1,5 +1,5 @@
-import {DeleteCategoryByNameUseCase, DeleteCategoryByNameCommand} from "../../common/usecases/DeleteCategoryByName";
-import {Repository} from "../repository/Repository";
+import {DeleteCategoryByNameUseCase, DeleteCategoryByNameCommand} from "../../common/usecases";
+import {Repository} from "../repository";
 import {error} from "../../common/utils";
 
 export class DeleteCategoryByNameInteractor extends DeleteCategoryByNameUseCase {

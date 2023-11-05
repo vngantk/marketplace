@@ -1,5 +1,5 @@
 import {QueryUseCase} from "./UseCase";
-import {Category} from "../entities/Category";
+import {Category} from "../entities";
 
 export type GetCategoryQuery = Readonly<{
     id: string;

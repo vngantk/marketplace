@@ -1,8 +1,8 @@
-import {ExpressApiRouter} from "./routers/ExpressApiRouter"
-import {ExpressInteractorsRouter} from "./routers/ExpressInteractorsRouter"
-import {MongoDBRepository} from "./repository/MongoDBRepository"
-import {ExpressServer} from "./servers/ExpressServer"
-import {UseCaseInteractors} from "./interactors/UseCaseInteractors"
+import {ExpressApiRouter} from "./routers"
+import {ExpressInteractorsRouter} from "./routers"
+import {MongoDBRepository} from "./repository"
+import {ExpressServer} from "./servers"
+import {UseCaseInteractors} from "./interactors"
 
 const interactors = new UseCaseInteractors(new MongoDBRepository())
 const expressApiRouter = ExpressApiRouter(interactors)

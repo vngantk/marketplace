@@ -1,4 +1,4 @@
-import {Product} from "../entities/Product";
+import {Product} from "../entities";
 import {QueryUseCase} from "./UseCase";
 
 export type GetAllProductsQuery = Readonly<{}>

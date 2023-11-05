@@ -1,5 +1,5 @@
 import {QueryUseCase} from "./UseCase";
-import {Product} from "../entities/Product";
+import {Product} from "../entities";
 
 export type GetProductsByNameQuery = Readonly<{
     name: string;

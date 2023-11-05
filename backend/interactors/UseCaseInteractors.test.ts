@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import {MongoMemoryServer} from "mongodb-memory-server";
-import {MongoDBRepository} from "../repository/MongoDBRepository";
+import {MongoDBRepository} from "../repository";
 import {UseCaseInteractors} from "./UseCaseInteractors";
-import {UpdateProductCommand} from "../../common/usecases/UpdateProduct";
-import {Product} from "../../common/entities/Product"
-import {Category} from "../../common/entities/Category";
+import {UpdateProductCommand} from "../../common/usecases";
+import {Product} from "../../common/entities"
+import {Category} from "../../common/entities";
 
 const mongodb = new MongoMemoryServer({
     instance: {dbName: "Marketplace", port: 27017, ip: "localhost"},

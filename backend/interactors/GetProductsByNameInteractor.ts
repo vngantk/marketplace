@@ -1,6 +1,6 @@
-import {GetProductsByNameUseCase, GetProductsByNameQuery} from "../../common/usecases/GetProductsByName";
-import {Product} from "../../common/entities/Product";
-import {Repository} from "../repository/Repository";
+import {GetProductsByNameUseCase, GetProductsByNameQuery} from "../../common/usecases";
+import {Product} from "../../common/entities";
+import {Repository} from "../repository";
 import {error} from "../../common/utils";
 
 export class GetProductsByNameInteractor extends GetProductsByNameUseCase {

@@ -1,5 +1,5 @@
-import {DeleteCategoryUseCase, DeleteCategoryCommand} from "../../common/usecases/DeleteCategory";
-import {Repository} from "../repository/Repository";
+import {DeleteCategoryUseCase, DeleteCategoryCommand} from "../../common/usecases";
+import {Repository} from "../repository";
 import {error} from "../../common/utils";
 
 export class DeleteCategoryInteractor extends DeleteCategoryUseCase {

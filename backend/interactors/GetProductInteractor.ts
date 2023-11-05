@@ -1,6 +1,6 @@
-import {GetProductUseCase, GetProductQuery} from "../../common/usecases/GetProduct";
-import {Product} from "../../common/entities/Product";
-import {Repository} from "../repository/Repository";
+import {GetProductUseCase, GetProductQuery} from "../../common/usecases";
+import {Product} from "../../common/entities";
+import {Repository} from "../repository";
 import {error} from "../../common/utils";
 
 export class GetProductInteractor extends GetProductUseCase {
