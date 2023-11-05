@@ -1,15 +1,13 @@
 import {CommandUseCase} from "./UseCase";
 
-export namespace AddCategory {
-    export type Command = Readonly<{
-        name: string;
-    }>
+export type AddCategoryCommand = Readonly<{
+    name: string;
+}>
 
-    export abstract class UseCase extends CommandUseCase<Command> {
-        protected constructor() {
-            super("AddCategory");
-        }
+export abstract class AddCategoryUseCase extends CommandUseCase<AddCategoryCommand> {
+    protected constructor() {
+        super("AddCategory")
     }
 }
 
-export default AddCategory;
+

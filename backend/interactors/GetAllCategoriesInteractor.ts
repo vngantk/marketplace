@@ -1,13 +1,13 @@
-import GetAllCategories from "../../common/usecases/GetAllCategories";
-import Category from "../../common/entities/Category";
-import Repository from "../repository/Repository";
+import {GetAllCategoriesUseCase, GetAllCategoriesQuery} from "../../common/usecases/GetAllCategories";
+import {Category} from "../../common/entities/Category";
+import {Repository} from "../repository/Repository";
 
-export default class GetAllCategoriesInteractor extends GetAllCategories.UseCase {
+export class GetAllCategoriesInteractor extends GetAllCategoriesUseCase {
     constructor(readonly repository: Repository) {
         super();
     }
 
-    override async execute(query: GetAllCategories.Query): Promise<Category[]> {
+    override async execute(query: GetAllCategoriesQuery): Promise<Category[]> {
         return await this.repository.getAllCategories();
     }
 }

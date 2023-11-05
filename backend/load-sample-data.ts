@@ -1,8 +1,8 @@
-import Category from "../common/entities/Category";
-import Product from "../common/entities/Product";
-import UseCaseInteractors from "./interactors/UseCaseInteractors";
-import {MongoMemoryServer} from "mongodb-memory-server";
-import MongoDBRepository from "./repository/MongoDBRepository";
+import {Category} from "../common/entities/Category";
+import {Product} from "../common/entities/Product";
+import {UseCaseInteractors} from "./interactors/UseCaseInteractors";
+import {MongoDBRepository} from "./repository/MongoDBRepository";
+import mongoose from "mongoose";
 
 const sampleCategories: Omit<Category, "id">[] = [
     {name: 'Mobile Phones'},
@@ -19,25 +19,10 @@ const sampleProducts: Omit<Product, "id">[] = [
     {name: 'MacBook Pro 16', description: 'Apple MacBook Pro 16-inches', price: 2999.95, quantity: 75, category: 'Computers'}
 ]
 
-export async function loadSampleData(interactors: UseCaseInteractors) {
-    for (const category of sampleCategories) {
-        await interactors.AddCategory.execute(category)
-    }
-    for (const product of sampleProducts) {
-        await interactors.AddProduct.execute(product)
-    }
-}
-
-const mongodb = new MongoMemoryServer({
-    instance: {dbName: "Marketplace", port: 27017, ip: "localhost"},
-    auth: {enable: true, customRootName: "root", customRootPwd: "goodExample"}
-})
-
 const interactors = new UseCaseInteractors(new MongoDBRepository())
 
 async function start() {
-    await mongodb.start()
-    console.log("Memory MongoDB started: " + JSON.stringify(mongodb.instanceInfo?.instance?.instanceOpts, null, 4))
+    console.log("Loading sample data...")
     for (const category of sampleCategories) {
         await interactors.AddCategory.execute(category)
     }
@@ -51,10 +36,17 @@ async function start() {
     const products = await interactors.GetAllProducts.execute({})
     console.log("Loaded products: ")
     console.dir(products)
+
+    try {
+        await mongoose.disconnect()
+        console.log("Disconnected from MongoDB")
+    } catch (err) {
+        console.error("Failed to disconnect from MongoDB: " + err)
+    }
 }
 
 start().then(() => {
-    console.log("Sample data loaded")
+    console.log("Loaded sample data.")
 }).catch((err) => {
-    console.error(err)
+    console.error("Failed to load sample data: " + err)
 })

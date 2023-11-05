@@ -1,13 +1,13 @@
-import UpdateProduct from "../../common/usecases/UpdateProduct";
-import Repository from "../repository/Repository";
+import {UpdateProductUseCase, UpdateProductCommand} from "../../common/usecases/UpdateProduct";
+import {Repository} from "../repository/Repository";
 import {error} from "../../common/utils";
 
-export default class UpdateProductInteractor extends UpdateProduct.UseCase {
+export class UpdateProductInteractor extends UpdateProductUseCase {
     constructor(readonly repository: Repository) {
         super();
     }
 
-    override async execute(command: UpdateProduct.Command): Promise<void> {
+    override async execute(command: UpdateProductCommand): Promise<void> {
         const category = command.category;
         if (category !== undefined) {
             if (await this.repository.getCategoryByName(category) === undefined) {

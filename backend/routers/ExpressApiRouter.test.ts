@@ -1,12 +1,12 @@
 import request from "supertest"
-import Product from "../../common/entities/Product"
 import mongoose from "mongoose"
-import ExpressApiRouter from "./ExpressApiRouter"
-import MongoDBRepository from "../repository/MongoDBRepository"
-import ExpressServer from "../servers/ExpressServer"
+import {ExpressApiRouter} from "./ExpressApiRouter"
+import {MongoDBRepository} from "../repository/MongoDBRepository"
+import {ExpressServer} from "../servers/ExpressServer"
 import {MongoMemoryServer} from "mongodb-memory-server";
-import UseCaseInteractors from "../interactors/UseCaseInteractors";
-import Category from "../../common/entities/Category";
+import {UseCaseInteractors} from "../interactors/UseCaseInteractors";
+import {Product} from "../../common/entities/Product"
+import {Category} from "../../common/entities/Category";
 
 const mongodb = new MongoMemoryServer({
     instance: {dbName: "Marketplace", port: 27017, ip: "localhost"},

@@ -1,13 +1,13 @@
-import AddProduct from "../../common/usecases/AddProduct";
-import Repository from "../repository/Repository";
+import {AddProductUseCase, AddProductCommand} from "../../common/usecases/AddProduct";
+import {Repository} from "../repository/Repository";
 import {error} from "../../common/utils";
 
-export default class AddProductInteractor extends AddProduct.UseCase {
+export class AddProductInteractor extends AddProductUseCase {
     constructor(readonly repository: Repository) {
         super();
     }
 
-    override async execute(command: AddProduct.Command): Promise<void> {
+    override async execute(command: AddProductCommand): Promise<void> {
         const name = command.name?.trim() ?? error("name must be provided");
         const description = command.description ?? "";
         const price = command.price ?? error("price must be provided");

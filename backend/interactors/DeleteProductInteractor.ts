@@ -1,13 +1,13 @@
-import DeleteProduct from "../../common/usecases/DeleteProduct";
-import Repository from "../repository/Repository";
+import {DeleteProductUseCase, DeleteProductCommand} from "../../common/usecases/DeleteProduct";
+import {Repository} from "../repository/Repository";
 import {error} from "../../common/utils";
 
-export default class DeleteProductInteractor extends DeleteProduct.UseCase {
+export class DeleteProductInteractor extends DeleteProductUseCase {
     constructor(readonly repository: Repository) {
         super();
     }
 
-    override async execute(command: DeleteProduct.Command): Promise<void> {
+    override async execute(command: DeleteProductCommand): Promise<void> {
         await this.repository.deleteProduct(command.id ?? error("id must be provided"))
     }
 }

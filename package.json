@@ -1,18 +1,18 @@
 {
   "name": "marketplace",
   "version": "1.0.0",
-  "description": "Assignment 2 - Marketplace Backend",
+  "description": "Assignment 2 - Marketplace",
   "main": "index.js",
   "engines": {
     "node": ">=20.9.0 <21.0.0",
     "npm": ">=10.1.0 <10.2.0"
   },
   "scripts": {
-    "clean": "rm -rf backend-dist",
     "test": "jest",
     "build": "tsc",
-    "start": "tsc; node backend-dist/backend/index.js",
-    "sample-db": "tsc; node backend-dist/backend/sample-db.js"
+    "start": "ts-node ./backend/index.ts",
+    "memory-db": "ts-node ./backend/memory-mongodb.ts",
+    "load-sample-data": "ts-node ./backend/load-sample-data.ts"
   },
   "author": "Vincent Ngan",
   "license": "ISC",

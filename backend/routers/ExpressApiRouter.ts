@@ -1,7 +1,7 @@
 import express, {Router} from 'express';
-import AddProduct from "../../common/usecases/AddProduct";
-import UpdateProduct from "../../common/usecases/UpdateProduct";
-import UseCaseInteractors from "../interactors/UseCaseInteractors";
+import {AddProductCommand} from "../../common/usecases/AddProduct";
+import {UpdateProductCommand} from "../../common/usecases/UpdateProduct";
+import {UseCaseInteractors} from "../interactors/UseCaseInteractors";
 
 export function ExpressApiRouter(interactors: UseCaseInteractors): Router {
 
@@ -35,14 +35,14 @@ export function ExpressApiRouter(interactors: UseCaseInteractors): Router {
             .catch(error => res.status(400).json({error: error.message}));
     });
 
-    router.post<any, any, any, AddProduct.Command>('/products', (req, res) => {
+    router.post<any, any, any, AddProductCommand>('/products', (req, res) => {
         const request = req.body
         interactors.AddProduct.execute(request)
             .then(() => res.status(201).json())
             .catch(error => res.status(400).json({error: error.message}));
     });
 
-    router.put<any, any, any, UpdateProduct.Command>('/products/:id', (req, res) => {
+    router.put<any, any, any, UpdateProductCommand>('/products/:id', (req, res) => {
         const id = req.params.id;
         const request = req.body;
         interactors.UpdateProduct.execute({...request, id: id})
@@ -66,4 +66,4 @@ export function ExpressApiRouter(interactors: UseCaseInteractors): Router {
     return router;
 }
 
-export default ExpressApiRouter;
+

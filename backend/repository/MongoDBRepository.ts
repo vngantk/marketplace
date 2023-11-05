@@ -1,16 +1,8 @@
-import mongoose, {
-    ConnectOptions,
-    Model,
-    Mongoose,
-    Schema,
-    SchemaDefinition,
-    SchemaDefinitionType,
-    Types
-} from "mongoose";
-import Repository from "./Repository";
-import Product from "../../common/entities/Product";
-import Category from "../../common/entities/Category";
-
+import mongoose from "mongoose";
+import {ConnectOptions, Model, Mongoose, Schema, SchemaDefinition, SchemaDefinitionType, Types} from "mongoose";
+import {Repository} from "./Repository";
+import {Product} from "../../common/entities/Product";
+import {Category} from "../../common/entities/Category";
 
 function toObjectId(id: any): Types.ObjectId | undefined {
     return Types.ObjectId.isValid(id) ? new Types.ObjectId(id) : undefined
@@ -233,4 +225,4 @@ export class MongoDBRepository implements Repository {
     }
 }
 
-export default MongoDBRepository;
+

@@ -1,8 +1,10 @@
 import express, {Router} from "express"
-import UseCases from "../../common/usecases/UseCases";
+import {UseCases} from "../../common/usecases/UseCases";
 import {Type, UseCase} from "../../common/usecases/UseCase"
 
-function ExpressInteractorsRouter(interactors: UseCases | UseCase[]): Router {
+export function ExpressInteractorsRouter(interactors: UseCases | UseCase[]): Router {
+
+    const router = express.Router()
 
     function execute<Req, Resp>(interactor: UseCase<Req, Resp>, request: Req): Promise<Resp> {
         try {
@@ -12,10 +14,8 @@ function ExpressInteractorsRouter(interactors: UseCases | UseCase[]): Router {
         }
     }
 
-    const router = express.Router()
-
     for (const interactor of Array.isArray(interactors) ? interactors : (interactors as UseCases).all) {
-        console.log(`Register Interactor: ${interactor.name}, type: ${interactor.type}`)
+        console.log(`Interactor: ${interactor.name}, type: ${interactor.type}`)
         router.post(`/${interactor.name}`, async (req, res) => {
             execute(interactor, req.body).then(result => {
                 if (interactor.type == Type.QUERY) {
@@ -33,5 +33,5 @@ function ExpressInteractorsRouter(interactors: UseCases | UseCase[]): Router {
     return router
 }
 
-export default ExpressInteractorsRouter
+
 

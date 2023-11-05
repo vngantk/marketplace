@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import {MongoMemoryServer} from "mongodb-memory-server";
-import Product from "../../common/entities/Product"
-import MongoDBRepository from "../repository/MongoDBRepository";
-import UseCaseInteractors from "./UseCaseInteractors";
-import UpdateProduct from "../../common/usecases/UpdateProduct";
-import Category from "../../common/entities/Category";
+import {MongoDBRepository} from "../repository/MongoDBRepository";
+import {UseCaseInteractors} from "./UseCaseInteractors";
+import {UpdateProductCommand} from "../../common/usecases/UpdateProduct";
+import {Product} from "../../common/entities/Product"
+import {Category} from "../../common/entities/Category";
 
 const mongodb = new MongoMemoryServer({
     instance: {dbName: "Marketplace", port: 27017, ip: "localhost"},
@@ -145,7 +145,7 @@ describe('UpdateProduct', () => {
     it("should update the product details", async () => {
         const products = await interactors.GetAllProducts.execute({})
         for (const product of products) {
-            const command = <UpdateProduct.Command> {
+            const command = <UpdateProductCommand> {
                 id: product.id,
                 description: "** " + product.description + " **",
                 price: product.price * 2,

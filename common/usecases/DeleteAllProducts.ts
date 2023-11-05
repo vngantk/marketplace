@@ -1,13 +1,11 @@
 import {CommandUseCase} from "./UseCase";
 
-export namespace DeleteAllProducts {
-    export type Command = Readonly<{}>
+export type DeleteAllProductsCommand = Readonly<{}>
 
-    export abstract class UseCase extends CommandUseCase<Command> {
-        protected constructor() {
-            super("DeleteAllProducts");
-        }
+export abstract class DeleteAllProductsUseCase extends CommandUseCase<DeleteAllProductsCommand> {
+    protected constructor() {
+        super("DeleteAllProducts")
     }
 }
 
-export default DeleteAllProducts;
+

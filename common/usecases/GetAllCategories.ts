@@ -1,14 +1,12 @@
 import {QueryUseCase} from "./UseCase";
 import {Category} from "../entities/Category";
 
-export namespace GetAllCategories {
-    export type Query = Readonly<{}>
+export type GetAllCategoriesQuery = Readonly<{}>
 
-    export abstract class UseCase extends QueryUseCase<Query, Category[]> {
-        protected constructor() {
-            super("GetAllCategories");
-        }
+export abstract class GetAllCategoriesUseCase extends QueryUseCase<GetAllCategoriesQuery, Category[]> {
+    protected constructor() {
+        super("GetAllCategories")
     }
 }
 
-export default GetAllCategories;
+

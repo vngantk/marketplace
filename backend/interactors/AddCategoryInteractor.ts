@@ -1,12 +1,12 @@
-import AddCategory from "../../common/usecases/AddCategory";
-import Repository from "../repository/Repository";
+import {AddCategoryUseCase, AddCategoryCommand} from "../../common/usecases/AddCategory";
+import {Repository} from "../repository/Repository";
 
-export default class AddCategoryInteractor extends AddCategory.UseCase {
+export class AddCategoryInteractor extends AddCategoryUseCase {
     constructor(readonly repository: Repository) {
         super();
     }
 
-    override async execute(command: AddCategory.Command): Promise<void> {
+    override async execute(command: AddCategoryCommand): Promise<void> {
         await this.repository.addCategory(command)
     }
 }

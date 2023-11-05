@@ -1,20 +1,20 @@
-import Repository from "../repository/Repository";
-import UseCases from "../../common/usecases/UseCases";
-import AddCategoryInteractor from "./AddCategoryInteractor";
-import AddProductInteractor from "./AddProductInteractor";
-import DeleteAllCategoriesInteractor from "./DeleteAllCategoriesInteractor";
-import DeleteAllProductsInteractor from "./DeleteAllProductsInteractor";
-import DeleteCategoryInteractor from "./DeleteCategoryInteractor";
-import DeleteCategoryByNameInteractor from "./DeleteCategoryByNameInteractor";
-import DeleteProductInteractor from "./DeleteProductInteractor";
-import GetAllCategoriesInteractor from "./GetAllCategoriesInteractor";
-import GetAllProductsInteractor from "./GetAllProductsInteractor";
-import GetCategoryInteractor from "./GetCategoryInteractor";
-import GetCategoryByNameInteractor from "./GetCategoryByNameInteractor";
-import GetProductInteractor from "./GetProductInteractor";
-import GetProductsByNameInteractor from "./GetProductsByNameInteractor";
-import UpdateProductInteractor from "./UpdateProductInteractor";
+import {Repository} from "../repository/Repository";
+import {AddCategoryInteractor} from "./AddCategoryInteractor";
+import {AddProductInteractor} from "./AddProductInteractor";
+import {DeleteAllCategoriesInteractor} from "./DeleteAllCategoriesInteractor";
+import {DeleteAllProductsInteractor} from "./DeleteAllProductsInteractor";
+import {DeleteCategoryInteractor} from "./DeleteCategoryInteractor";
+import {DeleteCategoryByNameInteractor} from "./DeleteCategoryByNameInteractor";
+import {DeleteProductInteractor} from "./DeleteProductInteractor";
+import {GetAllCategoriesInteractor} from "./GetAllCategoriesInteractor";
+import {GetAllProductsInteractor} from "./GetAllProductsInteractor";
+import {GetCategoryInteractor} from "./GetCategoryInteractor";
+import {GetCategoryByNameInteractor} from "./GetCategoryByNameInteractor";
+import {GetProductInteractor} from "./GetProductInteractor";
+import {GetProductsByNameInteractor} from "./GetProductsByNameInteractor";
+import {UpdateProductInteractor} from "./UpdateProductInteractor";
 import {UseCase} from "../../common/usecases/UseCase";
+import {UseCases} from "../../common/usecases/UseCases";
 
 export class UseCaseInteractors implements UseCases {
     constructor(readonly repository: Repository) {}
@@ -39,5 +39,3 @@ export class UseCaseInteractors implements UseCases {
         return interactor;
     }
 }
-
-export default UseCaseInteractors;

@@ -1,35 +1,35 @@
-import AddCategory from "./AddCategory";
-import AddProduct from "./AddProduct";
-import DeleteAllCategories from "./DeleteAllCategories";
-import DeleteAllProducts from "./DeleteAllProducts";
-import DeleteCategory from "./DeleteCategory";
-import DeleteCategoryByName from "./DeleteCategoryByName";
-import DeleteProduct from "./DeleteProduct";
-import GetAllCategories from "./GetAllCategories";
-import GetAllProducts from "./GetAllProducts";
-import GetCategory from "./GetCategory";
-import GetCategoryByName from "./GetCategoryByName";
-import GetProduct from "./GetProduct";
-import GetProductsByName from "./GetProductsByName";
-import UpdateProduct from "./UpdateProduct";
+import {AddCategoryUseCase} from "./AddCategory";
+import {AddProductUseCase} from "./AddProduct";
+import {DeleteAllCategoriesUseCase} from "./DeleteAllCategories";
+import {DeleteAllProductsUseCase} from "./DeleteAllProducts";
+import {DeleteCategoryUseCase} from "./DeleteCategory";
+import {DeleteCategoryByNameUseCase} from "./DeleteCategoryByName";
+import {DeleteProductUseCase} from "./DeleteProduct";
+import {GetAllCategoriesUseCase} from "./GetAllCategories";
+import {GetAllProductsUseCase} from "./GetAllProducts";
+import {GetCategoryUseCase} from "./GetCategory";
+import {GetCategoryByNameUseCase} from "./GetCategoryByName";
+import {GetProductUseCase} from "./GetProduct";
+import {GetProductsByNameUseCase} from "./GetProductsByName";
+import {UpdateProductUseCase} from "./UpdateProduct";
 import {UseCase} from "./UseCase";
 
 export interface UseCases {
-    readonly AddCategory: AddCategory.UseCase;
-    readonly AddProduct: AddProduct.UseCase;
-    readonly DeleteAllCategories: DeleteAllCategories.UseCase;
-    readonly DeleteAllProducts: DeleteAllProducts.UseCase;
-    readonly DeleteCategory: DeleteCategory.UseCase;
-    readonly DeleteCategoryByName: DeleteCategoryByName.UseCase;
-    readonly DeleteProduct: DeleteProduct.UseCase;
-    readonly GetAllCategories: GetAllCategories.UseCase;
-    readonly GetAllProducts: GetAllProducts.UseCase;
-    readonly GetCategory: GetCategory.UseCase;
-    readonly GetCategoryByName: GetCategoryByName.UseCase;
-    readonly GetProduct: GetProduct.UseCase;
-    readonly GetProductsByName: GetProductsByName.UseCase;
-    readonly UpdateProduct: UpdateProduct.UseCase;
+    readonly AddCategory: AddCategoryUseCase;
+    readonly AddProduct: AddProductUseCase;
+    readonly DeleteAllCategories: DeleteAllCategoriesUseCase;
+    readonly DeleteAllProducts: DeleteAllProductsUseCase;
+    readonly DeleteCategory: DeleteCategoryUseCase;
+    readonly DeleteCategoryByName: DeleteCategoryByNameUseCase;
+    readonly DeleteProduct: DeleteProductUseCase;
+    readonly GetAllCategories: GetAllCategoriesUseCase;
+    readonly GetAllProducts: GetAllProductsUseCase;
+    readonly GetCategory: GetCategoryUseCase;
+    readonly GetCategoryByName: GetCategoryByNameUseCase;
+    readonly GetProduct: GetProductUseCase;
+    readonly GetProductsByName: GetProductsByNameUseCase;
+    readonly UpdateProduct: UpdateProductUseCase;
     readonly all: UseCase[];
 }
 
-export default UseCases;
+

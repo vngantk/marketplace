@@ -1,13 +1,13 @@
-import DeleteAllProducts from "../../common/usecases/DeleteAllProducts";
-import Repository from "../repository/Repository";
-import DeleteAllCategories from "../../common/usecases/DeleteAllCategories";
+import {DeleteAllProductsUseCase, DeleteAllProductsCommand} from "../../common/usecases/DeleteAllProducts";
+import {Repository} from "../repository/Repository";
+import {DeleteAllCategoriesUseCase, DeleteAllCategoriesCommand} from "../../common/usecases/DeleteAllCategories";
 
-export default class DeleteAllProductsInteractor extends DeleteAllProducts.UseCase {
+export class DeleteAllProductsInteractor extends DeleteAllProductsUseCase {
     constructor(readonly repository: Repository) {
         super();
     }
 
-    override async execute(command: DeleteAllCategories.Command): Promise<void> {
+    override async execute(command: DeleteAllCategoriesCommand): Promise<void> {
         await this.repository.deleteAllProducts()
     }
 }

@@ -7,5 +7,3 @@ export type Product = Readonly<{
     quantity: number;
     category: string;
 }>
-
-export default Product;
