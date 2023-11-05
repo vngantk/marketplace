@@ -1,6 +1,6 @@
-import {DeleteAllProductsUseCase, DeleteAllProductsCommand} from "../../common/usecases/DeleteAllProducts";
+import {DeleteAllProductsUseCase} from "../../common/usecases/DeleteAllProducts";
 import {Repository} from "../repository/Repository";
-import {DeleteAllCategoriesUseCase, DeleteAllCategoriesCommand} from "../../common/usecases/DeleteAllCategories";
+import {DeleteAllCategoriesCommand} from "../../common/usecases/DeleteAllCategories";
 
 export class DeleteAllProductsInteractor extends DeleteAllProductsUseCase {
     constructor(readonly repository: Repository) {
