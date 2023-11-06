@@ -1,11 +1,14 @@
-import mongoose from "mongoose";
-import {ConnectOptions, Model, Mongoose, Schema, SchemaDefinition, SchemaDefinitionType, Types} from "mongoose";
+import mongoose, {
+    ConnectOptions,
+    Model,
+    Mongoose,
+    Schema,
+    SchemaDefinition,
+    SchemaDefinitionType,
+    Types
+} from "mongoose";
 import {Repository} from "./Repository";
-import {Product, Category} from "../../common/entities";
-
-function toObjectId(id: any): Types.ObjectId | undefined {
-    return Types.ObjectId.isValid(id) ? new Types.ObjectId(id) : undefined
-}
+import {Category, Product} from "../../common/entities";
 
 export class MongoDBRepository implements Repository {
 
@@ -48,6 +51,10 @@ export class MongoDBRepository implements Repository {
     }
 
     protected initModel<T>(name: string, definition: SchemaDefinition<SchemaDefinitionType<any>>): Model<T> {
+        const model = mongoose.models[name]
+        if (model) {
+            return model as Model<T>
+        }
         const schema = new Schema(definition, {
             id: true, versionKey: false,
             toObject: {
@@ -67,7 +74,7 @@ export class MongoDBRepository implements Repository {
                 }
             }
         })
-        return mongoose.model<T>(name,schema, name)
+        return mongoose.model<T>(name, schema, name)
     }
 
     protected initProductModel(): Model<Product> {
@@ -116,6 +123,13 @@ export class MongoDBRepository implements Repository {
     getProductsByNamePattern(pattern: string): Promise<Product[]> {
         return this.productModel
             .find({name: {$regex: pattern, $options: 'i'}})
+            .exec()
+            .then(result => result.map(product => product.toObject()));
+    }
+
+    getProductsByCategory(category: string): Promise<Product[]> {
+        return this.productModel
+            .find({category: {$eq: category}})
             .exec()
             .then(result => result.map(product => product.toObject()));
     }
@@ -224,4 +238,6 @@ export class MongoDBRepository implements Repository {
     }
 }
 
-
+function toObjectId(id: any): Types.ObjectId | undefined {
+    return Types.ObjectId.isValid(id) ? new Types.ObjectId(id) : undefined
+}

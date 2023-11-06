@@ -1,15 +1,8 @@
-import {QueryUseCase} from "./UseCase";
+import {QueryUseCase, QueryUseCaseProperties} from "./UseCase";
 import {Product} from "../entities";
 
-export type GetProductsByNameQuery = Readonly<{
-    name: string;
-        exactMatch?: boolean;
-}>
+export type GetProductsByNameQuery = Readonly<{ name: string; exactMatch?: boolean; }>
 
-export abstract class GetProductsByNameUseCase extends QueryUseCase<GetProductsByNameQuery, Product[]> {
-    protected constructor() {
-        super("GetProductsByName")
-    }
-}
+export type GetProductsByName = QueryUseCase<GetProductsByNameQuery, Product[]>
 
-
+export const GetProductsByNameProperties: QueryUseCaseProperties = { name: "GetProductsByName", type: "query" }

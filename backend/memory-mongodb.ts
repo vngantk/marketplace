@@ -5,7 +5,7 @@ const mongodb = new MongoMemoryServer({
         dbName: "Marketplace",
         port: 27017,
         ip: "localhost",
-        storageEngine: "wiredTiger"
+        // storageEngine: "wiredTiger"
     },
     auth: {
         enable: true,

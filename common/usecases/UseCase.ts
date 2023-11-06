@@ -1,28 +1,22 @@
+export type UseCaseType = "query" | "command";
 
-export enum Type {
-    QUERY = "QUERY",
-    COMMAND = "COMMAND"
+export type UseCaseProperties = {
+    readonly name: string;
+    readonly type: UseCaseType;
 }
 
-export interface UseCase<Req = any, Resp = any> {
-    readonly name: string;
-    readonly type: Type;
+export type CommandUseCaseProperties = UseCaseProperties & {
+    readonly type: "command";
+}
+
+export type QueryUseCaseProperties = UseCaseProperties & {
+    readonly type: "query";
+}
+
+export type UseCase<Req = any, Resp = any> = UseCaseProperties & {
     execute(request: Req): Promise<Resp>;
 }
 
-export abstract class CommandUseCase<Command> implements UseCase<Command, void> {
-    readonly type: Type.COMMAND;
+export type CommandUseCase<Command = any> = UseCase<Command, void> & CommandUseCaseProperties
 
-    protected constructor(readonly name: string) {
-        this.type = Type.COMMAND;
-    }
-    abstract execute(request: Command): Promise<void>;
-}
-
-export abstract class QueryUseCase<Query, Result> implements UseCase<Query, Result> {
-    readonly type: Type.QUERY;
-    protected constructor(readonly name: string) {
-        this.type = Type.QUERY;
-    }
-    abstract execute(request: Query): Promise<Result>;
-}
+export type QueryUseCase<Query = any, Result = any> = UseCase<Query, Result> & QueryUseCaseProperties

@@ -1,5 +1,4 @@
-import {Category} from "../common/entities";
-import {Product} from "../common/entities";
+import {Category, Product} from "../common/entities";
 import {UseCaseInteractors} from "./interactors";
 import {MongoDBRepository} from "./repository";
 import mongoose from "mongoose";

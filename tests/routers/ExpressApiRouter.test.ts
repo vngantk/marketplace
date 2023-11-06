@@ -1,16 +1,23 @@
+import {ExpressApiRouter} from "../../backend/routers"
+import {MongoDBRepository} from "../../backend/repository"
+import {ExpressServer} from "../../backend/servers"
+import {MongoMemoryServer} from "mongodb-memory-server";
+import {UseCaseInteractors} from "../../backend/interactors";
+import {Category, Product} from "../../common/entities"
+import {delay} from "../../common/utils";
 import request from "supertest"
 import mongoose from "mongoose"
-import {ExpressApiRouter} from "./ExpressApiRouter"
-import {MongoDBRepository} from "../repository"
-import {ExpressServer} from "../servers"
-import {MongoMemoryServer} from "mongodb-memory-server";
-import {UseCaseInteractors} from "../interactors";
-import {Product} from "../../common/entities"
-import {Category} from "../../common/entities";
 
 const mongodb = new MongoMemoryServer({
-    instance: {dbName: "Marketplace", port: 27017, ip: "localhost"},
-    auth: {enable: true, customRootName: "root", customRootPwd: "goodExample"}
+    instance: {
+        dbName: "Marketplace",
+        port: 27017, ip: "localhost"
+    },
+    auth: {
+        enable: true,
+        customRootName: "root",
+        customRootPwd: "goodExample"
+    }
 })
 
 const interactors = new UseCaseInteractors(new MongoDBRepository())
@@ -48,6 +55,7 @@ afterAll(async () => {
     console.log("Connection to MongoDB closed.")
     await mongodb.stop()
     console.log("Memory MongoDB stopped.")
+    await delay(1000)
 })
 
 describe('POST /api/products', () => {

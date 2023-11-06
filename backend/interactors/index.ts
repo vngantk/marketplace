@@ -13,4 +13,5 @@ export * from "./DeleteAllCategoriesInteractor";
 export * from "./DeleteAllProductsInteractor";
 export * from "./UpdateProductInteractor";
 export * from "./UseCaseInteractors";
+export {UseCaseInteractor} from "./UseCaseInteractor";
 

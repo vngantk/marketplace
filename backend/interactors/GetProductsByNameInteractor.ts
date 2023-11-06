@@ -1,13 +1,13 @@
-import {GetProductsByNameUseCase, GetProductsByNameQuery} from "../../common/usecases";
+import {GetProductsByName, GetProductsByNameProperties, GetProductsByNameQuery} from "../../common/usecases";
 import {Product} from "../../common/entities";
 import {Repository} from "../repository";
 import {error} from "../../common/utils";
+import {QueryInteractor} from "./UseCaseInteractor";
 
-export class GetProductsByNameInteractor extends GetProductsByNameUseCase {
-    constructor(readonly repository: Repository) {
-        super();
+export class GetProductsByNameInteractor extends QueryInteractor<GetProductsByName> implements GetProductsByName {
+    constructor(repository: Repository) {
+        super(repository, GetProductsByNameProperties);
     }
-
     override async execute(query: GetProductsByNameQuery): Promise<Product[]> {
         const name = query.name ?? error("name must be provided")
         if (query.exactMatch) {

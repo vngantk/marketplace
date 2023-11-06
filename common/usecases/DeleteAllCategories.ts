@@ -1,12 +1,10 @@
-import {CommandUseCase} from "./UseCase";
+import {CommandUseCase, CommandUseCaseProperties} from "./UseCase";
 
-export type DeleteAllCategoriesCommand = Readonly<{
-}>
+export type DeleteAllCategoriesCommand = Readonly<{}>
 
-export abstract class DeleteAllCategoriesUseCase extends CommandUseCase<DeleteAllCategoriesCommand> {
-    protected constructor() {
-        super("DeleteAllCategories")
-    }
-}
+export type DeleteAllCategories = CommandUseCase<DeleteAllCategoriesCommand>
+
+export const DeleteAllCategoriesProperties: CommandUseCaseProperties = { name: "DeleteAllCategories", type: "command" }
+
 
 

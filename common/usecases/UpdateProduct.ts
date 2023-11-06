@@ -1,4 +1,4 @@
-import {CommandUseCase} from "./UseCase";
+import {CommandUseCase, CommandUseCaseProperties} from "./UseCase";
 
 export type UpdateProductCommand = Readonly<{
     id: string;
@@ -9,10 +9,6 @@ export type UpdateProductCommand = Readonly<{
     category?: string;
 }>
 
-export abstract class UpdateProductUseCase extends CommandUseCase<UpdateProductCommand> {
-    protected constructor() {
-        super("UpdateProduct")
-    }
-}
+export type UpdateProduct = CommandUseCase<UpdateProductCommand>
 
-
+export const UpdateProductProperties: CommandUseCaseProperties = { name: "UpdateProduct", type: "command" }

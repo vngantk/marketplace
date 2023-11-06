@@ -1,5 +1,4 @@
-import {ExpressApiRouter} from "./routers"
-import {ExpressInteractorsRouter} from "./routers"
+import {ExpressApiRouter, ExpressInteractorsRouter} from "./routers"
 import {MongoDBRepository} from "./repository"
 import {ExpressServer} from "./servers"
 import {UseCaseInteractors} from "./interactors"

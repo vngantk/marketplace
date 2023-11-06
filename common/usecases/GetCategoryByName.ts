@@ -1,14 +1,8 @@
 import {Category} from "../entities";
-import {QueryUseCase} from "./UseCase";
+import {QueryUseCase, QueryUseCaseProperties} from "./UseCase";
 
-export type GetCategoryByNameQuery = Readonly<{
-    name: string;
-}>
+export type GetCategoryByNameQuery = Readonly<{ name: string; }>
 
-export abstract class GetCategoryByNameUseCase extends QueryUseCase<GetCategoryByNameQuery, Category | undefined> {
-    protected constructor() {
-        super("GetCategoryByName")
-    }
-}
+export type GetCategoryByName = QueryUseCase<GetCategoryByNameQuery, Category | undefined>
 
-
+export const GetCategoryByNameProperties: QueryUseCaseProperties = { name: "GetCategoryByName", type: "query" }

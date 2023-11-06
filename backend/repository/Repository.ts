@@ -1,10 +1,11 @@
-import {Product, Category} from "../../common/entities";
+import {Category, Product} from "../../common/entities";
 
 export interface Repository {
 
     getProduct(id: string): Promise<Product | undefined>;
     getProductsByName(name: string): Promise<Product[]>;
     getProductsByNamePattern(pattern: string): Promise<Product[]>;
+    getProductsByCategory(category: string): Promise<Product[]>;
     getAllProducts(): Promise<Product[]>;
 
     addProduct(product: Omit<Product, "id">): Promise<Product>;

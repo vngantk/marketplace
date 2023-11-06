@@ -13,9 +13,9 @@ import {GetCategoryByNameInteractor} from "./GetCategoryByNameInteractor";
 import {GetProductInteractor} from "./GetProductInteractor";
 import {GetProductsByNameInteractor} from "./GetProductsByNameInteractor";
 import {UpdateProductInteractor} from "./UpdateProductInteractor";
-import {UseCases, UseCase} from "../../common/usecases";
+import {UseCase, UseCaseCollection} from "../../common/usecases";
 
-export class UseCaseInteractors implements UseCases {
+export class UseCaseInteractors implements UseCaseCollection {
     constructor(readonly repository: Repository) {}
     readonly all: UseCase[] = [];
     readonly AddCategory = this.add(new AddCategoryInteractor(this.repository));

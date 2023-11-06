@@ -22,5 +22,16 @@ module.exports = {
     "lcov",
     "clover"
   ],
-  coverageDirectory: "tests/coverage",
+  coverageDirectory: "tests-reports/coverage",
+  reporters: [
+    "default",
+    ["jest-html-reporters", {
+      "publicPath": "./tests-reports",
+      "filename": "jest-report.html",
+      "expand": true,
+      enableMergeData: true,
+      dataMergeLevel: 2
+      }
+    ],
+  ]
 }

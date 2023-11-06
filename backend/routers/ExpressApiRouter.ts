@@ -1,6 +1,5 @@
 import express, {Router} from 'express';
-import {AddProductCommand} from "../../common/usecases";
-import {UpdateProductCommand} from "../../common/usecases";
+import {AddProductCommand, UpdateProductCommand} from "../../common/usecases";
 import {UseCaseInteractors} from "../interactors";
 
 export function ExpressApiRouter(interactors: UseCaseInteractors): Router {
