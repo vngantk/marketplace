@@ -21,8 +21,7 @@ export class ExpressServer {
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: true}));
-        morgan.token('body', (req: Request, res: Response) => JSON.stringify(req.body));
-        this.app.use(morgan(':method :url :status :response-time ms - :res[content-length] :body - :req[content-length]'));
+        this.app.use(morgan('dev'));
         this.app.use(logErrors)
         this.app.use(errorHandler)
         this.app.get("/", (req, res) => {

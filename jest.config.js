@@ -30,7 +30,9 @@ module.exports = {
       "filename": "jest-report.html",
       "expand": true,
       enableMergeData: true,
-      dataMergeLevel: 2
+      dataMergeLevel: 2,
+      pageTitle: "Marketplace Application Test Report",
+      includeConsoleLog: true,
       }
     ],
   ]
