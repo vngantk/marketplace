@@ -13,28 +13,32 @@ import {GetCategoryByNameInteractor} from "./GetCategoryByNameInteractor";
 import {GetProductInteractor} from "./GetProductInteractor";
 import {GetProductsByNameInteractor} from "./GetProductsByNameInteractor";
 import {UpdateProductInteractor} from "./UpdateProductInteractor";
-import {UseCase, UseCaseCollection} from "../../common/usecases";
+import {getUseCaseArray, getUseCaseMap, UseCase, UseCaseCollection, UseCaseCollectionKeys} from "../../common/usecases";
 
 export class UseCaseInteractors implements UseCaseCollection {
     constructor(readonly repository: Repository) {}
-    readonly all: UseCase[] = [];
-    readonly AddCategory = this.add(new AddCategoryInteractor(this.repository));
-    readonly AddProduct = this.add(new AddProductInteractor(this.repository));
-    readonly DeleteAllCategories = this.add(new DeleteAllCategoriesInteractor(this.repository));
-    readonly DeleteAllProducts = this.add(new DeleteAllProductsInteractor(this.repository));
-    readonly DeleteCategory = this.add(new DeleteCategoryInteractor(this.repository));
-    readonly DeleteCategoryByName = this.add(new DeleteCategoryByNameInteractor(this.repository));
-    readonly DeleteProduct = this.add(new DeleteProductInteractor(this.repository));
-    readonly GetAllCategories = this.add(new GetAllCategoriesInteractor(this.repository));
-    readonly GetAllProducts = this.add(new GetAllProductsInteractor(this.repository));
-    readonly GetCategory = this.add(new GetCategoryInteractor(this.repository));
-    readonly GetCategoryByName = this.add(new GetCategoryByNameInteractor(this.repository));
-    readonly GetProduct = this.add(new GetProductInteractor(this.repository));
-    readonly GetProductsByName = this.add(new GetProductsByNameInteractor(this.repository));
-    readonly UpdateProduct = this.add(new UpdateProductInteractor(this.repository));
 
-    private add <T extends UseCase>(interactor: T): T {
-        this.all.push(interactor);
-        return interactor;
+    readonly AddCategory = new AddCategoryInteractor(this.repository);
+    readonly AddProduct = new AddProductInteractor(this.repository);
+    readonly DeleteAllCategories = new DeleteAllCategoriesInteractor(this.repository);
+    readonly DeleteAllProducts = new DeleteAllProductsInteractor(this.repository);
+    readonly DeleteCategory = new DeleteCategoryInteractor(this.repository);
+    readonly DeleteCategoryByName = new DeleteCategoryByNameInteractor(this.repository);
+    readonly DeleteProduct = new DeleteProductInteractor(this.repository);
+    readonly GetAllCategories = new GetAllCategoriesInteractor(this.repository);
+    readonly GetAllProducts = new GetAllProductsInteractor(this.repository);
+    readonly GetCategory = new GetCategoryInteractor(this.repository);
+    readonly GetCategoryByName = new GetCategoryByNameInteractor(this.repository);
+    readonly GetProduct = new GetProductInteractor(this.repository);
+    readonly GetProductsByName = new GetProductsByNameInteractor(this.repository);
+    readonly UpdateProduct = new UpdateProductInteractor(this.repository);
+
+    get array(): readonly UseCase[] {
+        return getUseCaseArray(this)
     }
+
+    get map(): ReadonlyMap<UseCaseCollectionKeys, UseCase> {
+        return getUseCaseMap(this)
+    }
+
 }

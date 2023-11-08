@@ -7,7 +7,7 @@ export class GetAllCategoriesInteractor extends QueryInteractor<GetAllCategories
     constructor(repository: Repository) {
         super(repository, GetAllCategoriesProperties);
     }
-    override async execute(query: GetAllCategoriesQuery): Promise<Category[]> {
+    override async invoke(query: GetAllCategoriesQuery): Promise<Category[]> {
         return await this.repository.getAllCategories();
     }
 }

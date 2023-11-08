@@ -43,10 +43,10 @@ const sampleProducts: Omit<Product, "id">[] = [
 beforeAll(async () => {
     await mongodb.start()
     console.log("Memory MongoDB started: " + JSON.stringify(mongodb.instanceInfo?.instance?.instanceOpts, null, 4));
-    await interactors.DeleteAllProducts.execute({})
-    await interactors.DeleteAllCategories.execute({})
+    await interactors.DeleteAllProducts.invoke({})
+    await interactors.DeleteAllCategories.invoke({})
     for (const category of sampleCategories) {
-        await interactors.AddCategory.execute(category)
+        await interactors.AddCategory.invoke(category)
     }
 })
 
@@ -90,7 +90,7 @@ describe('GET /api/products', () => {
 
 describe('GET /api/products/:id', () => {
     it('should fetch the product details by id', async () => {
-        const products = await interactors.GetAllProducts.execute({})
+        const products = await interactors.GetAllProducts.invoke({})
         for (const product of products) {
             const res = await request(app).get(`/api/products/${product.id}`)
             expect(res.statusCode).toEqual(200)
@@ -118,7 +118,7 @@ describe('GET /api/products?name=[kw]', () => {
 
 describe('PUT /api/products/:id', () => {
     it('should update the product details', async () => {
-        const products = await interactors.GetAllProducts.execute({})
+        const products = await interactors.GetAllProducts.invoke({})
         for (const product of products) {
             const updatedProduct = <Product> {
                 ...product,
@@ -142,7 +142,7 @@ describe('PUT /api/products/:id', () => {
 describe('DELETE /api/products/:id', () => {
     let products: Product[]
     it('should delete the product by ID of the first two products', async () => {
-        products = await interactors.GetAllProducts.execute({})
+        products = await interactors.GetAllProducts.invoke({})
         for (let i = 0; i < 2; i++) {
             const product = products[i]
             const res = await request(app).delete(`/api/products/${product.id}`)

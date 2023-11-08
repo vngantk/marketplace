@@ -8,7 +8,7 @@ export class DeleteCategoryInteractor extends CommandInteractor<DeleteCategory> 
         super(repository, DeleteCategoryProperties);
     }
 
-    override async execute(command: DeleteCategoryCommand): Promise<void> {
+    override async invoke(command: DeleteCategoryCommand): Promise<void> {
         const id = command.id ?? error("id must be provided")
         const category = await this.repository.getCategory(id)
         if (category) {

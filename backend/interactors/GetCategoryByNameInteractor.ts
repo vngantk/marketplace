@@ -8,7 +8,7 @@ export class GetCategoryByNameInteractor extends QueryInteractor<GetCategoryByNa
     constructor(repository: Repository) {
         super(repository, GetCategoryByNameProperties);
     }
-    override async execute(query: GetCategoryByNameQuery): Promise<Category | undefined> {
+    override async invoke(query: GetCategoryByNameQuery): Promise<Category | undefined> {
         return await this.repository.getCategoryByName(query.name ?? error("name must be provided"));
     }
 }

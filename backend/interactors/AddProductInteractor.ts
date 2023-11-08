@@ -8,7 +8,7 @@ export class AddProductInteractor extends CommandInteractor<AddProduct> implemen
         super(repository, AddProductProperties);
     }
 
-    override async execute(command: AddProductCommand): Promise<void> {
+    override async invoke(command: AddProductCommand): Promise<void> {
         const validatedCommand = this.validateInput(command);
         const category = validatedCommand.category;
         if (await this.repository.getCategoryByName(category) === undefined) {

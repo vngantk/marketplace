@@ -8,7 +8,7 @@ export class GetCategoryInteractor extends QueryInteractor<GetCategory> implemen
     constructor(repository: Repository) {
         super(repository, GetCategoryProperties);
     }
-    override async execute(query: GetCategoryQuery): Promise<Category | undefined> {
+    override async invoke(query: GetCategoryQuery): Promise<Category | undefined> {
         return await this.repository.getCategory(query.id ?? error("id must be provided"))
     }
 }

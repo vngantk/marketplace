@@ -6,7 +6,7 @@ export class DeleteAllProductsInteractor extends CommandInteractor<DeleteAllProd
     constructor(repository: Repository) {
         super(repository, DeleteAllProductsProperties);
     }
-    override async execute(command: DeleteAllCategoriesCommand): Promise<void> {
+    override async invoke(command: DeleteAllCategoriesCommand): Promise<void> {
         await this.repository.deleteAllProducts()
     }
 }

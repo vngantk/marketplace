@@ -71,6 +71,6 @@ For this simple application, we do not really need to adopt this architecture. P
 - Unit tests are essential for the furture development and continuous improvement of the application. They ensure that the application works as expected when changes are made.
 
 ### Further Considerations
-- Not all the terminology in Robert Martin's orginal version of Clean Architecture are used here. How the directories are named and organized are subject to changes.
+- Not array the terminology in Robert Martin's orginal version of Clean Architecture are used here. How the directories are named and organized are subject to changes.
 - As Typescript is not my primary programming language, I am still exploring different ways to model the application. The application will subject to changes as I understand more about Typescript.
 - The completion of the frontend part of the application will provide a complete demonstration of the Clean Architecture.

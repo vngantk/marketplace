@@ -8,7 +8,7 @@ export class GetProductsByNameInteractor extends QueryInteractor<GetProductsByNa
     constructor(repository: Repository) {
         super(repository, GetProductsByNameProperties);
     }
-    override async execute(query: GetProductsByNameQuery): Promise<Product[]> {
+    override async invoke(query: GetProductsByNameQuery): Promise<Product[]> {
         const name = query.name ?? error("name must be provided")
         if (query.exactMatch) {
             return await this.repository.getProductsByName(name);

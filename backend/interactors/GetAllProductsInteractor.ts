@@ -7,7 +7,7 @@ export class GetAllProductsInteractor extends QueryInteractor<GetAllProducts> im
     constructor(repository: Repository) {
         super(repository, GetAllProductsProperties);
     }
-    override async execute(query: GetAllProductsQuery): Promise<Product[]> {
+    override async invoke(query: GetAllProductsQuery): Promise<Product[]> {
         return await this.repository.getAllProducts();
     }
 }

@@ -5,18 +5,18 @@ export function ExpressInteractorsRouter(interactors: UseCaseCollection | UseCas
 
     const router = express.Router()
 
-    function execute<Req, Resp>(interactor: UseCase<Req, Resp>, request: Req): Promise<Resp> {
+    function invoke<Input, Output>(interactor: UseCase<Input, Output>, request: Input): Promise<Output> {
         try {
-            return interactor.execute(request)
+            return interactor.invoke(request)
         } catch (error) {
             return Promise.reject(error)
         }
     }
 
-    for (const interactor of Array.isArray(interactors) ? interactors : (interactors as UseCaseCollection).all) {
+    for (const interactor of Array.isArray(interactors) ? interactors : (interactors as UseCaseCollection).array) {
         console.log(`Setup route for interactor: ${interactor.name}, type: ${interactor.type}`)
         router.post(`/${interactor.type}/${interactor.name}`, async (req, res) => {
-            execute(interactor, req.body).then(result => {
+            invoke(interactor, req.body).then(result => {
                 if (interactor.type === "query") {
                     res.status(result === undefined ? 404 : 200).json(result)
                 } else if (interactor.type === "command") {

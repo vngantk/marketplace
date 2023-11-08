@@ -7,7 +7,7 @@ export class UpdateProductInteractor extends CommandInteractor<UpdateProduct> im
     constructor(repository: Repository) {
         super(repository, UpdateProductProperties);
     }
-    override async execute(command: UpdateProductCommand): Promise<void> {
+    override async invoke(command: UpdateProductCommand): Promise<void> {
         const id = command.id ?? error("id must be provided");
         const category = command.category;
         if (category !== undefined && await this.repository.getCategoryByName(category) === undefined) {

@@ -96,9 +96,7 @@ export class MongoDBRepository implements Repository {
     getProduct(id: string): Promise<Product | undefined> {
         const idObj = toObjectId(id)
         return this.productModel
-            .findById(idObj)
-            .exec()
-            .then(result => {
+            .findById(idObj).then(result => {
                 if (result) {
                     return result.toObject()
                 }
@@ -108,29 +106,24 @@ export class MongoDBRepository implements Repository {
 
     getAllProducts(): Promise<Product[]> {
         return this.productModel
-            .find()
-            .exec()
-            .then(result => result.map(product => product.toObject({})));
+            .find().then(result => result.map(product => product.toObject({})));
     }
 
     getProductsByName(name: string): Promise<Product[]> {
         return this.productModel
             .find({name: {$eq: name}})
-            .exec()
             .then(result => result.map(product => product.toObject()));
     }
 
     getProductsByNamePattern(pattern: string): Promise<Product[]> {
         return this.productModel
             .find({name: {$regex: pattern, $options: 'i'}})
-            .exec()
             .then(result => result.map(product => product.toObject()));
     }
 
     getProductsByCategory(category: string): Promise<Product[]> {
         return this.productModel
             .find({category: {$eq: category}})
-            .exec()
             .then(result => result.map(product => product.toObject()));
     }
 
@@ -148,30 +141,28 @@ export class MongoDBRepository implements Repository {
     deleteProduct(id: string): Promise<number> {
         return this.productModel
             .findByIdAndDelete(toObjectId(id))
-            .exec()
             .then(result => result ? 1 : 0);
     }
 
-    updateProduct(id: string, productPartial: Partial<Product>): Promise<Product> {
+    updateProduct(id: string, partial: Partial<Omit<Product, "id">>): Promise<Product> {
         const fields: Record<string, any> = {}
-        if (productPartial.name !== undefined) {
-            fields['name'] = productPartial.name
+        if (partial.name !== undefined) {
+            fields['name'] = partial.name
         }
-        if (productPartial.description !== undefined) {
-            fields['description'] = productPartial.description
+        if (partial.description !== undefined) {
+            fields['description'] = partial.description
         }
-        if (productPartial.price !== undefined) {
-            fields['price'] = productPartial.price
+        if (partial.price !== undefined) {
+            fields['price'] = partial.price
         }
-        if (productPartial.quantity !== undefined) {
-            fields['quantity'] = productPartial.quantity
+        if (partial.quantity !== undefined) {
+            fields['quantity'] = partial.quantity
         }
-        if (productPartial.category !== undefined) {
-            fields['category'] = productPartial.category
+        if (partial.category !== undefined) {
+            fields['category'] = partial.category
         }
         return this.productModel
             .findByIdAndUpdate(new Types.ObjectId(id), {$set: fields}, {returnDocument: 'after'})
-            .exec()
             .then(result => {
                 if (result) {
                     return result.toObject();
@@ -183,7 +174,6 @@ export class MongoDBRepository implements Repository {
     getCategory(id: string): Promise<Category | undefined> {
         return this.categoryModel
             .findById(toObjectId(id))
-            .exec()
             .then(result => {
                 return result?.toObject()
             });
@@ -192,14 +182,12 @@ export class MongoDBRepository implements Repository {
     getCategoryByName(name: string): Promise<Category | undefined> {
         return this.categoryModel
             .findOne({name: name})
-            .exec()
             .then(result => result?.toObject());
     }
 
     getAllCategories(): Promise<Category[]> {
         return this.categoryModel
             .find()
-            .exec()
             .then(result => result.map(category => category.toObject()));
     }
 
@@ -212,28 +200,24 @@ export class MongoDBRepository implements Repository {
     deleteCategory(id: string): Promise<number> {
         return this.categoryModel
             .findByIdAndDelete(new Types.ObjectId(id))
-            .exec()
             .then(result => result ? 1 : 0);
     }
 
     deleteCategoryByName(name: string): Promise<number> {
         return this.categoryModel
             .deleteMany({name: name})
-            .exec()
             .then(result => result.deletedCount || 0);
     }
 
     deleteAllProducts(): Promise<number> {
         return this.productModel
             .deleteMany({})
-            .exec()
             .then(result => result.deletedCount || 0);
     }
 
     deleteAllCategories(): Promise<number> {
         return this.categoryModel
             .deleteMany({})
-            .exec()
             .then(result => result.deletedCount || 0);
     }
 }

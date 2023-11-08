@@ -23,16 +23,16 @@ const interactors = new UseCaseInteractors(new MongoDBRepository())
 async function start() {
     console.log("Loading sample data...")
     for (const category of sampleCategories) {
-        await interactors.AddCategory.execute(category)
+        await interactors.AddCategory.invoke(category)
     }
     for (const product of sampleProducts) {
-        await interactors.AddProduct.execute(product)
+        await interactors.AddProduct.invoke(product)
     }
-    const categories = await interactors.GetAllCategories.execute({})
+    const categories = await interactors.GetAllCategories.invoke({})
     console.log("Loaded categories: ")
     console.dir(categories)
 
-    const products = await interactors.GetAllProducts.execute({})
+    const products = await interactors.GetAllProducts.invoke({})
     console.log("Loaded products: ")
     console.dir(products)
 

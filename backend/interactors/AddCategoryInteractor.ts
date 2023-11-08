@@ -6,7 +6,7 @@ export class AddCategoryInteractor extends CommandInteractor<AddCategory> implem
     constructor(repository: Repository) {
         super(repository, AddCategoryProperties);
     }
-    override async execute(command: AddCategoryCommand): Promise<void> {
+    override async invoke(command: AddCategoryCommand): Promise<void> {
         await this.repository.addCategory(command); return
     }
 }

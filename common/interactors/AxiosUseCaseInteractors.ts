@@ -17,7 +17,7 @@ import {
     GetAllCategories,
     GetAllCategoriesProperties,
     GetAllProducts,
-    GetAllProductsProperties,
+    GetAllProductsProperties, getUseCaseArray,
     GetCategory,
     GetCategoryByName,
     GetCategoryByNameProperties,
@@ -29,81 +29,72 @@ import {
     UpdateProduct,
     UpdateProductProperties,
     UseCase,
-    UseCaseCollection
+    UseCaseCollection, UseCaseProperties, UseCaseCollectionKeys, getUseCaseMap
 } from "../usecases";
-
-function hasResponseData(response: AxiosResponse): boolean {
-    return (response.status === 200 && response.data !== undefined && response.data !== "")
-}
 
 export class AxiosUseCaseInteractors implements UseCaseCollection {
     constructor(readonly client: AxiosInstance) {}
+    readonly AddCategory: AddCategory = {...AddCategoryProperties, invoke: (request) => invoke(this.client, AddCategoryProperties, request)}
+    readonly AddProduct: AddProduct = {...AddProductProperties, invoke: (request) => invoke(this.client, AddProductProperties, request)}
+    readonly DeleteAllCategories: DeleteAllCategories = {...DeleteAllCategoriesProperties, invoke: (request) => invoke(this.client, DeleteAllCategoriesProperties, request)}
+    readonly DeleteAllProducts: DeleteAllProducts = {...DeleteAllProductsProperties, invoke: (request) => invoke(this.client, DeleteAllProductsProperties, request)}
+    readonly DeleteCategory: DeleteCategory = {...DeleteCategoryProperties, invoke: (request) => invoke(this.client, DeleteCategoryProperties, request)}
+    readonly DeleteCategoryByName: DeleteCategoryByName = {...DeleteCategoryByNameProperties, invoke: (request) => invoke(this.client, DeleteCategoryByNameProperties, request)}
+    readonly DeleteProduct: DeleteProduct = {...DeleteProductProperties, invoke: (request) => invoke(this.client, DeleteProductProperties, request)}
+    readonly GetAllCategories: GetAllCategories = {...GetAllCategoriesProperties, invoke: (request) => invoke(this.client, GetAllCategoriesProperties, request)}
+    readonly GetAllProducts: GetAllProducts = {...GetAllProductsProperties, invoke: (request) => invoke(this.client, GetAllProductsProperties, request)}
+    readonly GetCategory: GetCategory = {...GetCategoryProperties, invoke: (request) => invoke(this.client, GetCategoryProperties, request)}
+    readonly GetCategoryByName: GetCategoryByName = {...GetCategoryByNameProperties, invoke: (request) => invoke(this.client, GetCategoryByNameProperties, request)}
+    readonly GetProduct: GetProduct = {...GetProductProperties, invoke: (request) => invoke(this.client, GetProductProperties, request)}
+    readonly GetProductsByName: GetProductsByName = {...GetProductsByNameProperties, invoke: (request) => invoke(this.client, GetProductsByNameProperties, request)}
+    readonly UpdateProduct: UpdateProduct = {...UpdateProductProperties, invoke: (request) => invoke(this.client, UpdateProductProperties, request)}
 
-    protected dispatch<T extends UseCase<Req, Resp>, Req, Resp>(usecase: Omit<T, "execute">, request: Req): Promise<Resp> {
-        return this.client({
-            method: "POST",
-            url: `/${usecase.type}/${usecase.name}`,
-            data: request,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(response => {
-            if (usecase.type === "query") {
-                if (response.status === 200 || response.status === 404) {
-                    if (hasResponseData(response)) {
-                        return response.data as Resp
-                    }
-                    return undefined as Resp
-                }
-                throw new Error(response.data.error)
-            }
-            if (usecase.type === "command") {
-                if (response.status === 200) {
-                    if (hasResponseData(response)) {
-                        return response.data as Resp
-                    }
-                    return undefined as Resp
-                }
-                throw new Error(response.data.error)
-            }
-            return response.data as Resp
-        }).catch(error => {
-            if (usecase.type === "query" && error.response.status === 404) {
-                return undefined as Resp
-            }
-            throw new Error(error.message)
-        })
+    get array(): readonly UseCase[] {
+        return getUseCaseArray(this);
     }
 
-    readonly AddCategory: AddCategory = {...AddCategoryProperties, execute: (request) => this.dispatch(AddCategoryProperties, request)}
-    readonly AddProduct: AddProduct = {...AddProductProperties, execute: (request) => this.dispatch(AddProductProperties, request)}
-    readonly DeleteAllCategories: DeleteAllCategories = {...DeleteAllCategoriesProperties, execute: (request) => this.dispatch(DeleteAllCategoriesProperties, request)}
-    readonly DeleteAllProducts: DeleteAllProducts = {...DeleteAllProductsProperties, execute: (request) => this.dispatch(DeleteAllProductsProperties, request)}
-    readonly DeleteCategory: DeleteCategory = {...DeleteCategoryProperties, execute: (request) => this.dispatch(DeleteCategoryProperties, request)}
-    readonly DeleteCategoryByName: DeleteCategoryByName = {...DeleteCategoryByNameProperties, execute: (request) => this.dispatch(DeleteCategoryByNameProperties, request)}
-    readonly DeleteProduct: DeleteProduct = {...DeleteProductProperties, execute: (request) => this.dispatch(DeleteProductProperties, request)}
-    readonly GetAllCategories: GetAllCategories = {...GetAllCategoriesProperties, execute: (request) => this.dispatch(GetAllCategoriesProperties, request)}
-    readonly GetAllProducts: GetAllProducts = {...GetAllProductsProperties, execute: (request) => this.dispatch(GetAllProductsProperties, request)}
-    readonly GetCategory: GetCategory = {...GetCategoryProperties, execute: (request) => this.dispatch(GetCategoryProperties, request)}
-    readonly GetCategoryByName: GetCategoryByName = {...GetCategoryByNameProperties, execute: (request) => this.dispatch(GetCategoryByNameProperties, request)}
-    readonly GetProduct: GetProduct = {...GetProductProperties, execute: (request) => this.dispatch(GetProductProperties, request)}
-    readonly GetProductsByName: GetProductsByName = {...GetProductsByNameProperties, execute: (request) => this.dispatch(GetProductsByNameProperties, request)}
-    readonly UpdateProduct: UpdateProduct = {...UpdateProductProperties, execute: (request) => this.dispatch(UpdateProductProperties, request)}
+    get map(): ReadonlyMap<UseCaseCollectionKeys, UseCase> {
+        return getUseCaseMap(this);
+    }
+}
 
-    readonly all: UseCase[] = [
-        this.AddCategory,
-        this.AddProduct,
-        this.DeleteAllCategories,
-        this.DeleteAllProducts,
-        this.DeleteCategory,
-        this.DeleteCategoryByName,
-        this.DeleteProduct,
-        this.GetAllCategories,
-        this.GetAllProducts,
-        this.GetCategory,
-        this.GetCategoryByName,
-        this.GetProduct,
-        this.GetProductsByName,
-        this.UpdateProduct
-    ];
+function invoke<T extends UseCase<Input, Output>, Input, Output>(client: AxiosInstance, usecase: UseCaseProperties, request: Input): Promise<Output> {
+    return client({
+        method: "POST",
+        url: `/${usecase.type}/${usecase.name}`,
+        data: request,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(response => {
+        switch (usecase.type) {
+            case "query":
+                if (response.status === 200 || response.status === 404) {
+                    if (hasResponseData(response)) {
+                        return response.data as Output
+                    }
+                    return undefined as Output
+                }
+                throw new Error(response.data.error)
+            case "command":
+                if (response.status === 200) {
+                    if (hasResponseData(response)) {
+                        return response.data as Output
+                    }
+                    return undefined as Output
+                }
+                throw new Error(response.data.error)
+            default:
+                throw new Error(`Unknown UseCase type ${usecase.type}`)
+        }
+    }).catch(error => {
+        if (usecase.type === "query" && error.response.status === 404) {
+            return undefined as Output
+        }
+        throw new Error(error.message)
+    })
+}
+
+function hasResponseData(response: AxiosResponse): boolean {
+    return (response.status === 200 && response.data !== undefined && response.data !== "")
 }

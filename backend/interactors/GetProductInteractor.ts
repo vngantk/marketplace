@@ -8,7 +8,7 @@ export class GetProductInteractor extends QueryInteractor<GetProduct> implements
     constructor(repository: Repository) {
         super(repository, GetProductProperties);
     }
-    override async execute(query: GetProductQuery): Promise<Product | undefined> {
+    override async invoke(query: GetProductQuery): Promise<Product | undefined> {
         return await this.repository.getProduct(query.id ?? error("id must be provided"));
     }
 }
